@@ -3,4 +3,4 @@
 
 ### Description:
 
--newTech is an eCommerce web application based on Angular4 framwork
+-newTech is an eCommerce web application based on Angular7 framwork
