@@ -20,8 +20,8 @@ export interface CreateLinkMutationResponse {
 }
 
 export const SIGN_IN_QUERY = gql`
-  query  {
-    userForLogin(email: "test@mail.com", password: "12346789") {
+  query userForLogin($email: String!, $password: String) {
+    userForLogin(email: $email, password: $password) {
     email
     profilename
     token

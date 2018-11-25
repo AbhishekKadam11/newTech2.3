@@ -53,14 +53,27 @@ export class LoginComponent implements OnInit {
       //   },3000);
       // });
 
-      // var input = {
-      //   email: values['email'],
-      //   password: values['password']
-      // };
+      var input = {
+        email: values['email'],
+        password: values['password']
+      };
       this.apollo.watchQuery({
-        query: SIGN_IN_QUERY
+        query: SIGN_IN_QUERY,
+        variables: {  email: values['email'],
+                      password: values['password'] }
       }).valueChanges.subscribe((response) => {
+        localStorage.setItem('auth_token', response.data['userForLogin']['token']);
+        //      this.authtoken.createAuthorizationHeader(res.token);
+           var headers = new Headers({'Authorization': response.data['userForLogin']['token']});
+           var loggedIn = true;
+        this.router.navigate(['/pages/dashboard']);
         console.log(response); 
+      }, (error) => {
+        this.message = "Please enter correct credentials."
+        setTimeout(() => {
+            this.message = '';
+          },3000);
+        console.log("test" + error); 
       });
 
     }

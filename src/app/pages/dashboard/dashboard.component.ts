@@ -1,88 +1,130 @@
-import {Component, OnDestroy} from '@angular/core';
-import { NbThemeService } from '@nebular/theme';
-import { takeWhile } from 'rxjs/operators/takeWhile' ;
-
-interface CardSettings {
-  title: string;
-  iconClass: string;
-  type: string;
-}
+import { Component, OnInit, ViewEncapsulation, ViewChild  } from '@angular/core';
+import { Router } from '@angular/router';
+import { DashboardService } from './dashboard.service'
+import { NguCarouselConfig, NguCarousel } from '@ngu/carousel';
+// import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { StateService } from '../../../app/@core/data/state.service';
+import { GlobalShared } from '../../app.global';
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'ngx-dashboard',
   styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html',
+
 })
-export class DashboardComponent implements OnDestroy {
 
-  private alive = true;
+export class DashboardComponent implements OnInit {
 
-  lightCard: CardSettings = {
-    title: 'Light',
-    iconClass: 'nb-lightbulb',
-    type: 'primary',
-  };
-  rollerShadesCard: CardSettings = {
-    title: 'Roller Shades',
-    iconClass: 'nb-roller-shades',
-    type: 'success',
-  };
-  wirelessAudioCard: CardSettings = {
-    title: 'Wireless Audio',
-    iconClass: 'nb-audio',
-    type: 'info',
-  };
-  coffeeMakerCard: CardSettings = {
-    title: 'Coffee Maker',
-    iconClass: 'nb-coffee-maker',
-    type: 'warning',
-  };
+  dashboardProducts;
+  processor;
+  graphiccard;
+  monitor;
+  routers;
+  motherboard;
+  public isRunning: boolean = true;
+  public carouselTileItems: Array<any>;
+  public carouselTile: NguCarouselConfig;
+  @ViewChild('myCarousel') myCarousel: NguCarousel<string>;
+  carouselConfig: NguCarouselConfig = {
+    grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
+    load: 3,
+    interval: {timing: 4000, initialDelay: 1000},
+    loop: true,
+    touch: true,
+    velocity: 0.2
+  }
+  carouselItems = [1, 2, 3];
+  constructor(private dashboardService: DashboardService, public globalShared: GlobalShared,
+              private router: Router, private stateService: StateService) {
 
-  statusCards: string;
+    this.stateService.setSidebarState(this.stateService.sidebars[2]);
 
-  commonStatusCardsSet: CardSettings[] = [
-    this.lightCard,
-    this.rollerShadesCard,
-    this.wirelessAudioCard,
-    this.coffeeMakerCard,
-  ];
-
-  statusCardsByThemes: {
-    default: CardSettings[];
-    cosmic: CardSettings[];
-    corporate: CardSettings[];
-  } = {
-    default: this.commonStatusCardsSet,
-    cosmic: this.commonStatusCardsSet,
-    corporate: [
-      {
-        ...this.lightCard,
-        type: 'warning',
-      },
-      {
-        ...this.rollerShadesCard,
-        type: 'primary',
-      },
-      {
-        ...this.wirelessAudioCard,
-        type: 'danger',
-      },
-      {
-        ...this.coffeeMakerCard,
-        type: 'secondary',
-      },
-    ],
-  };
-
-  constructor(private themeService: NbThemeService) {
-    this.themeService.getJsTheme()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe(theme => {
-        this.statusCards = this.statusCardsByThemes[theme.name];
+    this.dashboardService.dashboardProductList().subscribe((result) => {
+      this.dashboardProducts = result;
+      this.processor = result['processor'];
+      this.graphiccard = result['graphiccard'];
+      this.motherboard = result['motherboard'];
+      this.monitor = result['monitor'];
+      this.routers = result['router'];
+    //  this.spinnerService.hide();
+      this.isRunning = false;
     });
+
   }
 
-  ngOnDestroy() {
-    this.alive = false;
+  slides: any;
+
+  ngOnInit() {
+    this.carouselTile = {
+      grid: {xs: 2, sm: 3, md: 3, lg: 5, all: 0},
+      slide: 2,
+      speed: 400,
+      animation: 'lazy',
+      point: {
+        visible: false,
+      },
+      load: 2,
+      touch: true,
+      easing: 'ease',
+    };
+
+    this.slides = [
+      {
+        id: 'slide-1',
+        img: {
+          url: '../../../assets/images/slides/banner1.jpg',
+        },
+      },
+      {
+        id: 'slide-2',
+        img: {
+          url: '../../../assets/images/slides/banner2.jpg',
+        },
+      },
+      {
+        id: 'slide-3',
+        img: {
+          url: '../../../assets/images/slides/banner3.jpg',
+        },
+      },
+      {
+        id: 'slide-4',
+        img: {
+          url: '../../../assets/images/slides/banner4.jpg',
+        },
+      },
+      {
+        id: 'slide-5',
+        img: {
+          url: '../../../assets/images/slides/banner5.jpg',
+        },
+      },
+    ];
+
   }
+
+  public carouselTileLoad(evt: any) {
+
+    // const len = this.carouselTileItems.length
+    // if (len <= 30) {
+    //   for (let i = len; i < len + 10; i++) {
+    //     this.carouselTileItems.push(i);
+    //   }
+    // }
+
+  }
+
+  startLoadingSpinner() {
+  //  this.spinnerService.show();
+    // To test threshold change delay in query string it accepts time in secs
+    }
+
+  productDetails(productId) {
+    this.router.navigate(['/pages/productdetails', productId ]);
+  //  this.router.navigateByUrl('pages/productDetails');
+  }
+
+
+
 }

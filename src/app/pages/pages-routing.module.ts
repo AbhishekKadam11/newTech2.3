@@ -10,10 +10,10 @@ const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [{
-    path: 'dashboard',
+    path: 'iot-dashboard',
     component: ECommerceComponent,
   }, {
-    path: 'iot-dashboard',
+    path: 'dashboard',
     component: DashboardComponent,
   }, {
     path: 'ui-features',

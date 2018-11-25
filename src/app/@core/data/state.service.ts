@@ -26,17 +26,17 @@ export class StateService implements OnDestroy {
     },
   ];
 
-  protected sidebars: any = [
+  public sidebars: any = [
     {
-      name: 'Sidebar at layout start',
+      name: 'Left Sidebar',
       icon: 'nb-layout-sidebar-left',
-      id: 'start',
+      id: 'left',
       selected: true,
     },
     {
-      name: 'Sidebar at layout end',
+      name: 'Right Sidebar',
       icon: 'nb-layout-sidebar-right',
-      id: 'end',
+      id: 'right',
     },
   ];
 
