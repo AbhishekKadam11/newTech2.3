@@ -1,16 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { NguCarouselConfig } from '@ngu/carousel';
 // import { NgxCarousel } from 'ngx-carousel';
 // import { Carousel } from './carousel.interface';
 
 @Component({
-  selector: 'ngbd-carousel',
+  selector: 'ngux-carousel',
   templateUrl: './carousel.component.html',
 
 })
 export class CarouselComponent implements OnInit {
   slides: any;
-
+  public carouselTile: NguCarouselConfig;
+ 
   ngOnInit() {
+    this.carouselTile = {
+      grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
+      load: 2,
+      interval: {timing: 3000, initialDelay: 1000},
+      loop: true,
+      touch: false,
+      velocity: 0.3
+      };
     this.slides = [
       {
         id: 'slide-1',

@@ -2,13 +2,14 @@ import { Component, OnInit, ViewEncapsulation, ViewChild  } from '@angular/core'
 import { Router } from '@angular/router';
 import { DashboardService } from './dashboard.service'
 import { NguCarouselConfig, NguCarousel } from '@ngu/carousel';
-// import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { Apollo } from 'apollo-angular';
 import { StateService } from '../../../app/@core/data/state.service';
 import { GlobalShared } from '../../app.global';
+import { CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, PRODUCT_LIST_QUERY } from '../../graphql';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'ngx-dashboard',
+  selector: 'ngu-dashboard',
   styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html',
 
@@ -36,19 +37,37 @@ export class DashboardComponent implements OnInit {
   }
  
   constructor(private dashboardService: DashboardService, public globalShared: GlobalShared,
-              private router: Router, private stateService: StateService) {
+              private router: Router, private stateService: StateService,
+              private apollo: Apollo) {
 
     this.stateService.setSidebarState(this.stateService.sidebars[2]);
 
-    this.dashboardService.dashboardProductList().subscribe((result) => {
-      this.dashboardProducts = result;
-      this.processor = result['processor'];
-      this.graphiccard = result['graphiccard'];
-      this.motherboard = result['motherboard'];
-      this.monitor = result['monitor'];
-      this.routers = result['router'];
-    //  this.spinnerService.hide();
+    // this.dashboardService.dashboardProductList().subscribe((result) => {
+    //   this.dashboardProducts = result;
+    //   this.processor = result['processor'];
+    //   this.graphiccard = result['graphiccard'];
+    //   this.motherboard = result['motherboard'];
+    //   this.monitor = result['monitor'];
+    //   this.routers = result['router'];
+    // //  this.spinnerService.hide();
+    //   this.isRunning = false;
+    // });
+
+    
+    this.apollo.watchQuery({
+      query: PRODUCT_LIST_QUERY
+     
+    }).valueChanges.subscribe((response) => {
+      this.dashboardProducts = JSON.parse(response['data']['dashboardProductList']);
+      this.processor = JSON.parse(this.dashboardProducts['Processor']);
+    //  this.graphiccard =  JSON.parse(this.dashboardProducts['graphiccard']);
+      // this.motherboard =  this.dashboardProducts['motherboard'];
+      // this.monitor =  this.dashboardProducts['monitor'];
+      // this.routers =  this.dashboardProducts['router'];
       this.isRunning = false;
+      console.log(JSON.parse(response['data']['dashboardProductList'])); 
+    }, (error) => {
+      console.log("test" + error); 
     });
 
   }
@@ -57,7 +76,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
    this.carouselTile = {
-    grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
+    grid: {xs: 2, sm: 3, md: 3, lg: 5, all: 0},
     load: 2,
     interval: {timing: 3000, initialDelay: 1000},
     loop: true,

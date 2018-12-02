@@ -1,9 +1,14 @@
-<ngu-carousel>
-  <ng-template ngbSlide *ngFor="let slide of slides" [id]="slide.id">
-    <img [src]="slide.img.url" width="100%">
-    <!--<div class="carousel-caption">-->
-      <!--<h3>{{slide.description.title}}</h3>-->
-      <!--<p>{{slide.description.detail}}</p>-->
-    <!--</div>-->
-  </ng-template>
+<ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="slides">
+  <ngu-tile *nguCarouselDef="let slide;">
+    <img  class="tile" [src]="slide.img.url" width="100%">
+  </ngu-tile>
+  <a class="right carousel-control-prev" NguCarouselPrev role="button">
+    <span aria-hidden="true" class="carousel-control-prev-icon leftRs"></span>
+    <span class="sr-only">Prev</span>
+  </a>
+  <a class="right carousel-control-next" NguCarouselNext role="button">
+    <span aria-hidden="true" class="carousel-control-next-icon rightRs"></span>
+    <span class="sr-only">Next</span>
+  </a>
+
 </ngu-carousel>

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   public submitted: boolean = false;
   public message: string;
 
-  constructor(fb: FormBuilder, private userService: UserService, private router: Router, private apollo: Apollo,) {
+  constructor(fb: FormBuilder, private userService: UserService, private router: Router, private apollo: Apollo) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -34,24 +34,6 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     console.log(values); 
     if (this.form.valid) {
-
-      // this.userService.login(values).subscribe((result) => {
-      //   console.log(result); 
-      //   if (result.success) {
-      //     this.router.navigate(['/pages/dashboard']);
-      //   } else {
-      //     this.message = result.msg;
-      //     setTimeout(() => {
-      //       this.message = '';
-      //     },3000);
-      
-      //   }
-      // }, (error)=>{
-      //    console.log(error); 
-      //   setTimeout(() => {
-      //     delete this.message;
-      //   },3000);
-      // });
 
       var input = {
         email: values['email'],

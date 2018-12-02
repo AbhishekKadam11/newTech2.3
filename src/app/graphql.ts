@@ -29,3 +29,9 @@ export const SIGN_IN_QUERY = gql`
   }
 `;
 
+export const PRODUCT_LIST_QUERY = gql`
+  query  {
+    dashboardProductList
+  }
+`;
+
