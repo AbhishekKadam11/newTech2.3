@@ -1,0 +1,19 @@
+.indicator {
+  background-color: #ef364c;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  color: white;
+  position: absolute;
+  top: -1px;
+  font-size: 0.5em;
+  right: 0;
+  font-weight: 700;
+  text-align: center;
+  span {
+    position: relative;
+    top: 1px;
+  }
+
+}

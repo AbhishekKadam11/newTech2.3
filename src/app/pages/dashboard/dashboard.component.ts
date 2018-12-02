@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
     touch: true,
     velocity: 0.2
   }
-  carouselItems = [1, 2, 3];
+ 
   constructor(private dashboardService: DashboardService, public globalShared: GlobalShared,
               private router: Router, private stateService: StateService) {
 
@@ -56,17 +56,13 @@ export class DashboardComponent implements OnInit {
   slides: any;
 
   ngOnInit() {
-    this.carouselTile = {
-      grid: {xs: 2, sm: 3, md: 3, lg: 5, all: 0},
-      slide: 2,
-      speed: 400,
-      animation: 'lazy',
-      point: {
-        visible: false,
-      },
-      load: 2,
-      touch: true,
-      easing: 'ease',
+   this.carouselTile = {
+    grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
+    load: 2,
+    interval: {timing: 3000, initialDelay: 1000},
+    loop: true,
+    touch: false,
+    velocity: 0.3
     };
 
     this.slides = [

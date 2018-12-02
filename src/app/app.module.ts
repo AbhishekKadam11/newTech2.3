@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from './pages/login/user.service';
 import { HttpClient } from './app.httpclient';
 import { GlobalShared } from './app.global';
+import { CartService } from './pages/cart/cart.service';
 
 import { GraphQLModule } from './apollo.config';
 
@@ -40,6 +41,7 @@ import { GraphQLModule } from './apollo.config';
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
     UserService,
+    CartService,
     {
       provide: HttpClient,
       useFactory: authHttpServiceFactory,
