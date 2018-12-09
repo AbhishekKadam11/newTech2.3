@@ -58,7 +58,7 @@
   </div>
 </div>
 
-<!-- <div class="row" style="margin-top: 10px">
+<div class="row" style="margin-top: 10px">
   <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-is-12">
     <nb-card>
       <nb-card-header class="color bg-info headerpad"><h4><strong>Motherboard</strong></h4> </nb-card-header>
@@ -69,27 +69,27 @@
           <div class="rect3"></div>
           <div class="rect4"></div>
           <div class="rect5"></div>
-        </div>
+        </div> 
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-is-12">
-          <ngu-carousel
-            [inputs]="carouselTile"
-            (carouselLoad)="carouselTileLoad($event)">
-            <ngu-tile NgxCarouselItem *ngFor="let slide of motherboard">
-              <a (click)="productDetails(slide['data']['_id'])">
-              <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
-              <blockquote class="blockquote">
-              <p class="mb-0" >{{slide['data']['title']}} </p>
-              </blockquote>
+          <ngu-carousel #myCarousel [inputs]="carouselTile"  [dataSource]="motherboard">
+            <ngu-tile *nguCarouselDef="let slide;">
+              <a (click)="productDetails(slide['data']['id'])">
+                <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+                <blockquote class="blockquote">
+                  <p class="mb-0">{{slide['data']['title']}} </p>
+                </blockquote>
               </a>
             </ngu-tile>
-            <a class="right carousel-control-prev" NgxCarouselPrev role="button">
+            <a class="right carousel-control-prev" NguCarouselPrev role="button">
               <span aria-hidden="true" class="carousel-control-prev-icon leftRs"></span>
               <span class="sr-only">Prev</span>
-            </a>
-            <a class="right carousel-control-next" NgxCarouselNext role="button">
-              <span aria-hidden="true" class="carousel-control-next-icon rightRs"></span>
+            </a> 
+            <a class="right carousel-control-next" NguCarouselNext role="button">
+              <span aria-hidden="false" class="carousel-control-next-icon rightRs">></span>
               <span class="sr-only">Next</span>
-            </a>
+            </a>          
+            <!-- <button NguCarouselPrev class='leftRs'>&lt;</button>
+            <button NguCarouselNext class='rightRs'>&gt;</button> -->
           </ngu-carousel>
         </div>
 
@@ -107,7 +107,7 @@
     </nb-card>
 
   </div>
-</div> -->
+</div>
 
 <div class="row" style="margin-top: 10px">
   <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12">
@@ -122,30 +122,10 @@
           <div class="rect5"></div>
          </div>
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12" >
-          <!-- <ngu-carousel
-            [inputs]="carouselTile"
-            (carouselLoad)="carouselTileLoad($event)">
-            <ngu-tile NgxCarouselItem *ngFor="let slide of processor">
-              <a (click)="productDetails(slide['data']['_id'])">
-                <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
-                <blockquote class="blockquote">
-                  <p class="mb-0">{{slide['data']['title']}} </p>
-                </blockquote>
-              </a>
-            </ngu-tile>
-            <a class="right carousel-control-prev" NgxCarouselPrev role="button">
-              <span aria-hidden="true" class="carousel-control-prev-icon leftRs"></span>
-              <span class="sr-only">Prev</span>
-            </a>
-            <a class="right carousel-control-next" NgxCarouselNext role="button">
-              <span aria-hidden="true" class="carousel-control-next-icon rightRs"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </ngu-carousel> -->
-
+       
           <ngu-carousel #myCarousel [inputs]="carouselTile"  (carouselLoad)="carouselTileLoad($event)" [dataSource]="processor">
             <ngu-tile *nguCarouselDef="let slide;">
-              <a (click)="productDetails(slide['data']['_id'])">
+              <a (click)="productDetails(slide['data']['id'])">
                 <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                 <blockquote class="blockquote">
                   <p class="mb-0">{{slide['data']['title']}} </p>
@@ -179,7 +159,7 @@
   </div>
 </div>
 
-<!-- <div class="row" style="margin-top: 10px">
+<div class="row" style="margin-top: 10px">
   <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12">
     <nb-card>
         <nb-card-header class="color bg-info headerpad"><h4><strong>Graphic Card</strong></h4> </nb-card-header>
@@ -192,26 +172,25 @@
           <div class="rect5"></div>
          </div>
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12">
-          <ngu-carousel
-            [inputs]="carouselTile"
-            (carouselLoad)="carouselTileLoad($event)">
-            <ngu-tile NgxCarouselItem *ngFor="let slide of graphiccard">
-              <a (click)="productDetails(slide['data']['_id'])">
-                <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
-                <blockquote class="blockquote">
-                  <p class="mb-0" >{{slide['data']['title']}} </p>
-                </blockquote>
-              </a>
-            </ngu-tile>
-            <a class="right carousel-control-prev" NgxCarouselPrev role="button">
-              <span aria-hidden="true" class="carousel-control-prev-icon leftRs"></span>
-              <span class="sr-only">Prev</span>
-            </a>
-            <a class="right carousel-control-next" NgxCarouselNext role="button">
-              <span aria-hidden="true" class="carousel-control-next-icon rightRs"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </ngu-carousel>
+            <ngu-carousel #myCarousel [inputs]="carouselTile"  (carouselLoad)="carouselTileLoad($event)" [dataSource]="graphiccard">
+                <ngu-tile *nguCarouselDef="let slide;">
+                  <a (click)="productDetails(slide['data']['id'])">
+                    <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+                    <blockquote class="blockquote">
+                      <p class="mb-0">{{slide['data']['title']}} </p>
+                    </blockquote>
+                  </a>
+                </ngu-tile>
+                <a class="right carousel-control-prev" NguCarouselPrev role="button">
+                  <span aria-hidden="true" class="carousel-control-prev-icon leftRs"></span>
+                  <span class="sr-only">Prev</span>
+                </a>
+                <a class="right carousel-control-next" NguCarouselNext role="button">
+                  <span aria-hidden="true" class="carousel-control-next-icon rightRs"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </ngu-carousel>
+         
         </div>
       </nb-card-body>
     </nb-card>
@@ -231,33 +210,31 @@
           <div class="rect5"></div>
          </div>
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12">
-          <ngu-carousel
-            [inputs]="carouselTile"
-            (carouselLoad)="carouselTileLoad($event)">
-            <ngu-tile NgxCarouselItem *ngFor="let slide of routers">
-              <a (click)="productDetails(slide['data']['_id'])">
-                <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
-                <blockquote class="blockquote">
-                  <p class="mb-0" >{{slide['data']['title']}} </p>
-                </blockquote>
-              </a>
-            </ngu-tile>
-            <a class="right carousel-control-prev" NgxCarouselPrev role="button">
-              <span aria-hidden="true" class="carousel-control-prev-icon leftRs"></span>
-              <span class="sr-only">Prev</span>
-            </a>
-            <a class="right carousel-control-next" NgxCarouselNext role="button">
-              <span aria-hidden="true" class="carousel-control-next-icon rightRs"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </ngu-carousel>
+            <ngu-carousel #myCarousel [inputs]="carouselTile"  (carouselLoad)="carouselTileLoad($event)" [dataSource]="routers">
+                <ngu-tile *nguCarouselDef="let slide;">
+                  <a (click)="productDetails(slide['data']['id'])">
+                    <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+                    <blockquote class="blockquote">
+                      <p class="mb-0">{{slide['data']['title']}} </p>
+                    </blockquote>
+                  </a>
+                </ngu-tile>
+                <a class="right carousel-control-prev" NguCarouselPrev role="button">
+                  <span aria-hidden="true" class="carousel-control-prev-icon leftRs"></span>
+                  <span class="sr-only">Prev</span>
+                </a>
+                <a class="right carousel-control-next" NguCarouselNext role="button">
+                  <span aria-hidden="true" class="carousel-control-next-icon rightRs"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </ngu-carousel>
 
         </div>
       </nb-card-body>
     </nb-card>
 
   </div>
-</div> -->
+</div> 
 <!--<div class="row">-->
   <!--<div class="col-xxxl-9 col-xl-12">-->
     <!--<ngx-rooms></ngx-rooms>-->

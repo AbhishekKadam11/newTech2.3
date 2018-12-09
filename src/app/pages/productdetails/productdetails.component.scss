@@ -1,0 +1,59 @@
+// @import '../../../app/@theme/styles/themes';
+// @import '~bootstrap/scss/mixins/breakpoints';
+// @import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+
+
+// @include nb-install-component() {
+
+//   .star {
+//     font-size: 1.5rem;
+//     color: nb-theme(color-fg);
+//   }
+
+//   .filled {
+//     color: nb-theme(color-fg);
+//   }
+//   .lm10 {
+//     margin-left: 10px;
+//   }
+//   .mt20 {
+//     margin-top: 20px;
+//   }
+
+// }
+.carousel-indicators li {
+  visibility: hidden;
+}
+
+.carousel-control-prev {
+  width: 5%;
+}
+
+.carousel-control-next {
+  width: 5%;
+}
+
+.mlr10 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.img {
+  width: 280px;
+  height: 380px;
+}
+
+.thumbnail {
+  width: 120px;
+  height: 120px;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.mt5 {
+  margin-top: 5px;
+}

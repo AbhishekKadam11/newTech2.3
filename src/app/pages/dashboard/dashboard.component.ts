@@ -28,12 +28,16 @@ export class DashboardComponent implements OnInit {
   public carouselTile: NguCarouselConfig;
   @ViewChild('myCarousel') myCarousel: NguCarousel<string>;
   carouselConfig: NguCarouselConfig = {
-    grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
-    load: 3,
-    interval: {timing: 4000, initialDelay: 1000},
-    loop: true,
-    touch: true,
-    velocity: 0.2
+    grid: {xs: 2, sm: 3, md: 3, lg: 5, all: 0},
+    slide: 2,
+      speed: 400,
+      animation: 'lazy',
+      point: {
+        visible: false,
+      },
+      load: 2,
+      touch: true,
+      easing: 'ease'
   }
  
   constructor(private dashboardService: DashboardService, public globalShared: GlobalShared,
@@ -60,12 +64,12 @@ export class DashboardComponent implements OnInit {
     }).valueChanges.subscribe((response) => {
       this.dashboardProducts = JSON.parse(response['data']['dashboardProductList']);
       this.processor = JSON.parse(this.dashboardProducts['Processor']);
-    //  this.graphiccard =  JSON.parse(this.dashboardProducts['graphiccard']);
-      // this.motherboard =  this.dashboardProducts['motherboard'];
-      // this.monitor =  this.dashboardProducts['monitor'];
-      // this.routers =  this.dashboardProducts['router'];
+      this.graphiccard = this.dashboardProducts['Graphic Card'] ? JSON.parse(this.dashboardProducts['Graphic Card']) : false;
+      this.motherboard = this.dashboardProducts['Motherboard'] ? JSON.parse(this.dashboardProducts['Motherboard']) : false;
+      this.monitor = this.dashboardProducts['Monitor'] ? JSON.parse(this.dashboardProducts['Monitor']) : false;
+      this.routers = this.dashboardProducts['Router'] ? JSON.parse(this.dashboardProducts['Router']) : false;
       this.isRunning = false;
-      console.log(JSON.parse(response['data']['dashboardProductList'])); 
+   //   console.log(JSON.stringify( this.dashboardProducts['graphiccard'])); 
     }, (error) => {
       console.log("test" + error); 
     });
@@ -136,6 +140,7 @@ export class DashboardComponent implements OnInit {
     }
 
   productDetails(productId) {
+    console.log("test" + productId); 
     this.router.navigate(['/pages/productdetails', productId ]);
   //  this.router.navigateByUrl('pages/productDetails');
   }
