@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {UserService} from './user.service';
+import { UserService } from './user.service';
 import { Apollo } from 'apollo-angular';
 import { CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, SIGN_IN_QUERY } from '../../graphql';
 
@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit {
            var headers = new Headers({'Authorization': response.data['userForLogin']['token']});
            var loggedIn = true;
         this.router.navigate(['/pages/dashboard']);
-        console.log(response); 
+        this.userService.setProfileData(response.data['userForLogin']);
+    //    console.log(response); 
       }, (error) => {
         this.message = "Please enter correct credentials."
         setTimeout(() => {

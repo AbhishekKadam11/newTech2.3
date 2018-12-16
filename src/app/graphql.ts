@@ -35,3 +35,16 @@ export const PRODUCT_LIST_QUERY = gql`
   }
 `;
 
+export const PRODUCT_CATEGORY_WISE_LIST_QUERY = gql`
+  query productCategoryList($category: String!, $brand: String!){
+    productCategoryList(category: $category, brand: $brand) {
+      id
+      productimages
+      title
+      brand
+      category
+      image
+    }
+  }
+`;
+

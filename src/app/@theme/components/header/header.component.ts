@@ -1,10 +1,9 @@
 import { Component, Input, OnInit, EventEmitter } from '@angular/core';
-
 import { NbMenuService, NbSidebarService, NbSearchService } from '@nebular/theme';
-import { UserService } from '../../../@core/data/users.service';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { LayoutService } from '../../../@core/data/layout.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../../pages/login/user.service';
 import { GlobalShared } from '../../../app.global';
 
 @Component({
@@ -37,14 +36,14 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-  
-    // if ( this.userService.profileName ) {
-    //   this.logged = this.userService.loggedIn;
-    //   this.profileName = this.userService.profileName;
-    //   this.profilePic = this.userService.basicdata['profilePic'];
-    //   this.userId = this.userService.userId;
-    //   this.hidebttn = true;
-    // }
+    console.log(this.userService.profileName);
+    if ( this.userService.profileName ) {
+      this.logged = this.userService.loggedIn;
+      this.profileName = this.userService.profileName;
+      this.profilePic = this.userService.basicdata['profilePic'];
+      this.userId = this.userService.userId;
+      this.hidebttn = true;
+    }
 
     this.searchService.onSearchSubmit().subscribe((result) => {
     //  this.searchString = result;

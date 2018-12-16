@@ -1,0 +1,97 @@
+  <h2 class="title">Sign Up</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+    <!-- <div 
+         class="alert alert-danger" role="alert">
+      <div><strong>Oh snap!</strong></div>
+      <div *ngFor="let error of errors">{{ error }}</div>
+    </div>
+    <div *ngIf="showMessages.success && messages && messages.length > 0 && !submitted"
+         class="alert alert-success" role="alert">
+      <div><strong>Hooray!</strong></div>
+      <div *ngFor="let message of messages">{{ message }}</div>
+    </div> -->
+
+    <div class="form-group">
+      <label for="input-name" class="sr-only">Full name</label>
+      <input name="name" [formControl]="name"  id="input-name"
+             class="form-control" placeholder="Full name"
+             [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}"
+             autofocus>
+      <small class="form-text error" *ngIf="name.invalid && name.touched && name.errors?.required">
+        Full name is required!
+      </small>
+      
+    </div>
+
+    <div class="form-group">
+      <label for="input-email" class="sr-only">Email address</label>
+      <input name="email" id="input-email" [formControl]="email"
+             class="form-control" placeholder="Email address" pattern=".+@.+..+"
+             [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}"
+             [class.form-control-danger]="email.invalid && email.touched"
+           >
+      <small class="form-text error" *ngIf="email.invalid && email.touched && email.errors?.required">
+        Email is required!
+      </small>
+      <small class="form-text error"
+             *ngIf="email.invalid && email.touched && email.errors?.pattern">
+        Email should be the real one!
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="input-password" class="sr-only">Password</label>
+      <input name="password" type="password" id="input-password" [formControl]="password"
+             class="form-control" placeholder="Password"
+             [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}"
+             [minlength]="8"
+             [maxlength]="25">
+      <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">
+        Password is required!
+      </small>
+      <small
+        class="form-text error"
+        *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">
+        Password should contains
+        from 8
+        to 25
+        characters
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="input-re-password" class="sr-only">Repeat password</label>
+      <input name="repeatPassword" type="password" id="input-re-password"
+        class="form-control" placeholder="Confirm Password"
+        [formControl]="repeatPassword"
+        [ngClass]="{'has-error': (!repeatPassword.valid && repeatPassword.touched || password.value !=repeatPassword.value),
+         'has-success': (repeatPassword.valid && repeatPassword.touched)}" >
+      <small class="form-text error"
+             *ngIf="repeatPassword.invalid && repeatPassword.touched && repeatPassword.errors?.required">
+        Password confirmation is required!
+      </small>
+      <small class="form-text error"
+        *ngIf="repeatPassword.touched && password.value != repeatPassword.value && !repeatPassword.errors?.required">
+        Password does not match the confirm password.
+      </small>
+    </div>
+
+    <div class="form-group accept-group col-sm-12" >
+      <span style="color:red">{{message}}</span>
+      <!-- <nb-checkbox name="terms" [(ngModel)]="user.terms" >
+        Agree to <a ><strong>Terms & Conditions</strong></a>
+      </nb-checkbox> -->
+    </div>
+
+    <button [disabled]="submitted || !form.valid" class="btn btn-block btn-hero-success"
+            [class.btn-pulse]="submitted">
+      Register
+    </button>
+  </form>
+
+  <div class="links">
+    <small class="form-text">
+      Already have an account? <a routerlink="../auth/login" href="#/auth/login"><strong>Sign in</strong></a>
+    </small>
+  </div>

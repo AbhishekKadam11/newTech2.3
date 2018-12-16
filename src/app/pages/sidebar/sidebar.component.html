@@ -1,0 +1,31 @@
+
+<nb-sidebar class="menu-sidebar left"
+            tag="menu-sidebar" [left]="true"
+            responsive>
+<div class="menu-sidebar left">
+
+
+
+<span class="menulist">
+
+  <a title="Dashboard">
+ <i class="ion-funnel"></i>
+  <span class="menu-title">Filters</span>
+</a>
+</span>
+<hr>
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+  <ngb-panel title="Brands">
+    <ng-template ngbPanelContent>
+      <div class="demo-checkboxes" *ngFor="let brand of brands; let i = index">
+        <nb-checkbox  [(ngModel)]="checkboxValue[brand]" (change)="selectedBrand($event, brand)">{{brand}}</nb-checkbox>
+      </div>
+    </ng-template>
+  </ngb-panel>
+
+</ngb-accordion>
+
+
+
+</div>
+</nb-sidebar>

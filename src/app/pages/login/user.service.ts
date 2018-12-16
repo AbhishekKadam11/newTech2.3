@@ -18,36 +18,11 @@ export class UserService {
     // this.userId = route.snapshot.params[localStorage.getItem('auth_token')];
   }
 
-  login(values) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http
-      .post(
-      //  'https://newtechserver.herokuapp.com/api/authenticate',
-        this.globalShared['serverpath'] + 'authenticate',
-        JSON.stringify({email: values.email, password: values.password}),
-        {headers}
-      )
-      .map(res => res.json())
-      .map((res) => {
-        if (res.success) {
-          localStorage.setItem('auth_token', res.token);
-       //      this.authtoken.createAuthorizationHeader(res.token);
-          var headers = new Headers({'Authorization': res.token});
-          var loggedIn = true;
-          this.setProfileData(res);
-        }
-        return res;
-      }, (err) => {
-        return err;
-      })
-  }
-
   setProfileData(data) {
-    this.profileName = data.profilename;
-    // this.userId = data.token;
+  //  console.log("set data" + data['profilename']); 
+    this.profileName = data['profilename'];
     this.basicdata = data;
+    this.loggedIn = true;
     this.getProfileData();
   }
 

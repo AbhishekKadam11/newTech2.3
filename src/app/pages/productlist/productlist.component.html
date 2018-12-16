@@ -1,0 +1,37 @@
+<ngx-sidebarmenues></ngx-sidebarmenues>
+<div class="col-xxxl-10 col-xxl-10 col-lg-10 col-md-10" style="float: right">
+  <nb-card>
+    <nb-card-header class="color"><h3>{{title}}</h3></nb-card-header>
+    <nb-card-body>
+      <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="ngspinner" *ngIf="isRunning">
+          <div class="dot1"></div>
+          <div class="dot2"></div>
+        </div>
+        <div class="display-flex">
+        <span *ngFor="let p of products ; let i = index ">
+          <nb-card class="col-xxxl-2 col-xxl-2 col-lg-2 col-md-2 section " style="flex-wrap: wrap;
+        flex: initial; ">
+            <nb-card-body> 
+           <a (click)="productDetails(p['id'])">
+           <div class="row">
+                <img [src]="globalShared['urlpath'] + p['image']" src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+             </div>
+        <div class="row">
+          <blockquote class="blockquote ">
+            <p class="mb-0">{{p['title']}} </p>
+          </blockquote>
+        </div>
+        </a>
+              </nb-card-body>
+          </nb-card>
+        </span>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+
+    </nb-card-footer>
+  </nb-card>
+
+</div>
