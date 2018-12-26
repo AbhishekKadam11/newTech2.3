@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       }).valueChanges.subscribe((response) => {
         localStorage.setItem('auth_token', response.data['userForLogin']['token']);
         //      this.authtoken.createAuthorizationHeader(res.token);
-           var headers = new Headers({'Authorization': response.data['userForLogin']['token']});
+       //   var headers = new Headers({'Authorization': response.data['userForLogin']['token']});
            var loggedIn = true;
         this.router.navigate(['/pages/dashboard']);
         this.userService.setProfileData(response.data['userForLogin']);
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         setTimeout(() => {
             this.message = '';
           },3000);
-        console.log("test" + error); 
+        console.log(error); 
       });
 
     }

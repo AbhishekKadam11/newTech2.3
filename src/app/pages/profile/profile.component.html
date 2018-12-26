@@ -1,0 +1,117 @@
+
+<div class="row">
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>Profile Picture</nb-card-header>
+      <nb-card-body>
+        <div class="profile-picture img-center">
+          <img *ngIf="url" width=180 height=180 src="{{url}}" />
+          <label *ngIf="editmode" for="uploader-input" ng2FileDrop [ngClass]="{'drag-over': hasDragOver}" (fileOver)="fileOver($event)" [uploader]="uploader">
+            <div class="infotext"><span *ngIf="!url" >Drop your picture<br>or click to upload</span></div>
+          </label>
+          <input *ngIf="editmode" type="file" ng2FileSelect [uploader]="uploader" id="uploader-input" style="display:none" />
+        </div>
+        <!--<fancy-image-uploader [options]="options" (onUpload)="onUpload($event)"></fancy-image-uploader>-->
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>Profile Details</nb-card-header>
+      <nb-card-body>
+        <form>
+          <div class="form-group">
+            <label for="User Name">User Name</label>
+            <input type="text" [(ngModel)]="profile.email" [ngModelOptions]="{standalone: true}" class="form-control" id="User Name"
+              placeholder="User Name">
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="Password1">Password</label>
+              <input type="password" [(ngModel)]="profile.password" [ngModelOptions]="{standalone: true}" class="form-control" id="Password1"
+                placeholder="Password">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="re-password">Re-Type Password</label>
+              <input type="password" [(ngModel)]="profile.repassword" [ngModelOptions]="{standalone: true}" class="form-control" id="re-password"
+                placeholder="Password">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="FirstName">First Name </label>
+              <input type="text" [(ngModel)]="profile.firstname" [ngModelOptions]="{standalone: true}" class="form-control" id="FirstName"
+                placeholder="First Name">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="MiddleName">Middle Name </label>
+              <input type="text" [(ngModel)]="profile.middlename" [ngModelOptions]="{standalone: true}" class="form-control" id="MiddleName"
+                placeholder="Middle Name">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="LastName">Last Name</label>
+              <input type="text" [(ngModel)]="profile.lastname" [ngModelOptions]="{standalone: true}" class="form-control" id="LastName"
+                placeholder="Last Name">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Gender </label>
+            </div>
+            <div class="form-group col-md-4">
+              <div class="form-check">
+                <label class="custom-control custom-radio">
+                  <input type="radio" [(ngModel)]="profile.gender" value="Male" class="custom-control-input" name="gridRadios" checked>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Male</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <div class="form-check">
+                <label class="custom-control custom-radio">
+                  <input type="radio" [(ngModel)]="profile.gender" value="Female" class="custom-control-input" name="gridRadios">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Fe-male</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="MobileNo">Mobile No.</label>
+            <input type="number" [(ngModel)]="profile.mobile" class="form-control" id="MobileNo" [ngModelOptions]="{standalone: true}"
+              placeholder="9999999999">
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label for="Address">Address</label>
+              <textarea rows="3" placeholder="Address" id="Address" [(ngModel)]="profile.address" [ngModelOptions]="{standalone: true}"
+                class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Notify me! </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="demo-checkboxes col-sm-4">
+              <nb-checkbox [(ngModel)]="profile.upcomingsale" [ngModelOptions]="{standalone: true}">New Upcoming offers
+              </nb-checkbox>
+            </div>
+            <div class="demo-checkboxes col-sm-4">
+              <nb-checkbox [(ngModel)]="profile.newarrival" [ngModelOptions]="{standalone: true}">New Arrival
+              </nb-checkbox>
+            </div>
+          </div>
+
+          <button type="submit" (click)="setProfile(profile)" class="btn btn-hero-success">Submit</button>
+          <div class="row">
+            <div class="col-md-8" style="color: green" *ngIf="savedSuccess">Profile Data is Saved Successfully!!!</div>
+            <div class="col-md-8" style="color: red" *ngIf="saveUnsuccess">Unable to Save Profile Data!!!</div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

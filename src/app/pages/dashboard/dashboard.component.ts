@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
     }
 
   productDetails(productId) {
-    console.log("test" + productId); 
+  //  console.log("test" + productId); 
     this.router.navigate(['/pages/productdetails', productId ]);
   //  this.router.navigateByUrl('pages/productDetails');
   }

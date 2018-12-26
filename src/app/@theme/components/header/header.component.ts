@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userService.profileName);
+  //  console.log(this.userService.profileName);
     if ( this.userService.profileName ) {
       this.logged = this.userService.loggedIn;
       this.profileName = this.userService.profileName;

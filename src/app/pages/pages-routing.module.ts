@@ -40,6 +40,9 @@ const routes: Routes = [{
     path: 'productlist/:productType',
     loadChildren: './productlist/productlist.module#ProductlistModule',
   }, {
+    path: 'profile',
+    loadChildren: 'app/pages/profile/profile.module#ProfileModule',
+  }, {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

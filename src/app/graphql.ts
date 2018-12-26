@@ -48,3 +48,9 @@ export const PRODUCT_CATEGORY_WISE_LIST_QUERY = gql`
   }
 `;
 
+export const USER_BASIC_DETAILS = gql`
+query {
+  userBasicDetails
+}
+`;
+
