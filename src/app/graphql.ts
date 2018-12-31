@@ -50,7 +50,25 @@ export const PRODUCT_CATEGORY_WISE_LIST_QUERY = gql`
 
 export const USER_BASIC_DETAILS = gql`
 query {
-  userBasicDetails
+  userBasicDetails {
+  profilename
+  email
+  extraaddon
+  firstName
+  middleName
+  lastName
+  address
+  mobileno
+  profilePic
+  gender
+  }
 }
 `;
 
+export const SET_USER_BASIC_DETAILS = gql`
+mutation userBasicDetails($input: UserInput!){
+  userBasicDetails(input: $input) {
+  id
+  }
+}
+`;

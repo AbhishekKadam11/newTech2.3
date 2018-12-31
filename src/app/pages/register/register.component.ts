@@ -70,16 +70,7 @@ export class RegisterComponent implements OnInit {
 
   public onSubmit(values: Object): void {
     if (this.form.valid) {
-      // this.registerService.register(values).subscribe((result) => {
-      //   if (result) {
-      //     this.router.navigate(['/pages/dashboard']);
-      //   } 
-      // },(error) => {
-      //   console.log(error);
-      //   this.message = error['error']['msg'];
-      // });
-
-      //graphql
+       //graphql
       var input = {
         email: values['email'],
         profilename: values['name'],

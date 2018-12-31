@@ -1,65 +1,49 @@
 import {NgModule} from '@angular/core';
 import {HttpClientModule, HttpHeaders} from '@angular/common/http';
 
-import {Apollo, ApolloModule} from 'apollo-angular';
+import {Apollo, APOLLO_OPTIONS, ApolloModule} from 'apollo-angular';
 import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {ApolloLink, concat} from 'apollo-link';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {setContext} from 'apollo-link-context';
+
+const uri = 'http://localhost:8080/graphql/';
+// const http = httpLink.create({uri});
+export function provideApollo(httpLink: HttpLink) {
+  const basic = setContext((op, ctx) => ({
+    headers: new HttpHeaders()
+      .set('Accept', 'charset=uf-8'),
+  }));
+  const token = localStorage.getItem('auth_token');
+  const auth = setContext((operation, ctx) => ({
+    // headers: new HttpHeaders()
+    //   .set('Authorization', 'Bearer PlsLogMeIn'),
+    headers: ctx.headers.append('Authorization', `Bearer ${token}`)
+  }));
+
+  const link = ApolloLink.from([basic, auth, httpLink.create({ uri })]);
+
+  return {
+    link,
+    cache: new InMemoryCache()
+  }
+}
 
 @NgModule({
   exports: [
     HttpClientModule,
     ApolloModule,
     HttpLinkModule
-  ]
+  ],
+  providers: [{
+    provide: APOLLO_OPTIONS,
+    useFactory: provideApollo,
+    deps: [HttpLink],
+  }],
 })
+
 export class GraphQLModule {
- 
-  constructor(apollo: Apollo, httpLink: HttpLink) {
 
-    const uri = 'http://localhost:8080/graphql/';
-    const http = httpLink.create({ uri });
-    let headers = new Headers();
-  
-    
-    const auth = setContext((_,  headers ) => {
-     // let head = headers;
-      // get the authentication token from local storage if it exists
-      const token = localStorage.getItem('auth_token');
-      // return the headers to the context so httpLink can read them
-      // in this example we assume headers property exists
-      // and it is an instance of HttpHeaders
-      if (!token) {
-        return {};
-      } else {
-        return {
-          headers: {
-                 Authorization: `Bearer ${token}`
-              }
-        };
-      }
-    });
-
-    // const auth = setContext((_, {  }) => {
-    //   // get the authentication token from local storage if it exists
-    //   const token = localStorage.getItem('auth_token');
-    //   // return the headers to the context so httpLink can read them
-    //   // in this example we assume headers property exists
-    //   // and it is an instance of HttpHeaders
-    //   if (!token) {
-    //     return {};
-    //   } else {
-    //     return {
-    //       headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
-    //     //  headers: headers.append('Authorization', `Bearer ${token}`)
-    //     };
-    //   }
-    // });
-    apollo.create({
-    link: auth.concat(http),
-      cache: new InMemoryCache()
-    });
-    
+  constructor() {
   }
 }

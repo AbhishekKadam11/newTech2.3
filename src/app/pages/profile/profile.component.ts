@@ -3,7 +3,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { ProfileService } from './profile.service'
 import { GlobalShared } from '../../app.global';
 import { Apollo } from 'apollo-angular';
-import { CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, USER_BASIC_DETAILS } from '../../graphql';
+import { SET_USER_BASIC_DETAILS, CreateLinkMutationResponse, USER_BASIC_DETAILS } from '../../graphql';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -22,20 +22,16 @@ export class ProfileComponent implements OnInit {
   saveUnsuccess: boolean = false;
   formData: FormData;
 
-  constructor(private profileService: ProfileService, private globalShared: GlobalShared,
+  constructor(private globalShared: GlobalShared,
               private apollo: Apollo) {
-
-    // this.profileService.getProfileData().subscribe((result) => {
-    //   this.profile = result.userDetails;
-    //   this.url = globalShared['urlpath'] + result.userDetails['profilePic'];
-    // })
 
     this.apollo.watchQuery({
       query: USER_BASIC_DETAILS
-     
+
     }).valueChanges.subscribe((response) => {
-      console.log(response); 
-   //   console.log(JSON.stringify( this.dashboardProducts['graphiccard'])); 
+      let data = response['data']['userBasicDetails'];
+      this.profile = data;
+      this.profile['extraaddon'] =data['extraaddon'] ? JSON.parse(data['extraaddon']) : {};
     }, (error) => {
       console.log("profile api " + error); 
     });
@@ -63,19 +59,37 @@ export class ProfileComponent implements OnInit {
   }
 
   setProfile(profile) {
-   // console.log(profile);
-    this.profileService.setprofileData(profile)
-      .subscribe((result) => {
-        this.savedSuccess = true;
-        setTimeout(() => {
-          this.savedSuccess = false;
-        }, 3000);
-      },(err)=> {
-        this.saveUnsuccess = true;
-        setTimeout(() => {
-          this.saveUnsuccess = false;
-        }, 3000);
-      });
+
+    var input = {
+      email: profile['email'],
+      firstName: profile['firstName'],
+      middleName: profile['middleName'],
+      lastName: profile['lastName'],
+      extraaddon: profile['extraaddon'] ? JSON.stringify(profile['extraaddon']) : null,
+      gender: profile['gender'],
+      address: profile['address'],
+      mobileno: profile['mobileno'],
+      profilePic: profile['profilePic'],
+      profilename: this.profile.profilename
+    };
+    console.log(input);
+    this.apollo.mutate({
+      mutation: SET_USER_BASIC_DETAILS,
+      variables: {input}
+    }).subscribe((response) => {
+      this.savedSuccess = true;
+      setTimeout(() => {
+        this.savedSuccess = false;
+      }, 3000);
+
+    }, (error) => {
+      this.saveUnsuccess = true;
+      setTimeout(() => {
+        this.saveUnsuccess = false;
+      }, 3000);
+      console.log(error);
+    });
+
   }
 
 }

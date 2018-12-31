@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserService } from './user.service';
-import { Apollo } from 'apollo-angular';
-import { CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, SIGN_IN_QUERY } from '../../graphql';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {UserService} from './user.service';
+import {Apollo} from 'apollo-angular';
+import {CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, SIGN_IN_QUERY} from '../../graphql';
 
 @Component({
   selector: 'ngx-login',
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   public onSubmit(values: Object): void {
     this.submitted = true;
-    console.log(values); 
+    console.log(values);
     if (this.form.valid) {
 
       var input = {
@@ -41,22 +41,24 @@ export class LoginComponent implements OnInit {
       };
       this.apollo.watchQuery({
         query: SIGN_IN_QUERY,
-        variables: {  email: values['email'],
-                      password: values['password'] }
+        variables: {
+          email: values['email'],
+          password: values['password']
+        }
       }).valueChanges.subscribe((response) => {
         localStorage.setItem('auth_token', response.data['userForLogin']['token']);
         //      this.authtoken.createAuthorizationHeader(res.token);
-       //   var headers = new Headers({'Authorization': response.data['userForLogin']['token']});
-           var loggedIn = true;
+        //   var headers = new Headers({'Authorization': response.data['userForLogin']['token']});
+        var loggedIn = true;
         this.router.navigate(['/pages/dashboard']);
         this.userService.setProfileData(response.data['userForLogin']);
-    //    console.log(response); 
+        //    console.log(response);
       }, (error) => {
         this.message = "Please enter correct credentials."
         setTimeout(() => {
-            this.message = '';
-          },3000);
-        console.log(error); 
+          this.message = '';
+        }, 3000);
+        console.log(error);
       });
 
     }
