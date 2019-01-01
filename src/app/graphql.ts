@@ -2,7 +2,6 @@
 import gql from 'graphql-tag'
 import { onError } from "apollo-link-error";
 
-
 export const CREATE_LINK_MUTATION_SIGNUP = gql`
  
 mutation signup($input: UserInput!){
@@ -71,4 +70,35 @@ mutation userBasicDetails($input: UserInput!){
   id
   }
 }
+`;
+
+export const PRODUCT_DESCRIPTION = gql`
+  query getProductDescriptionData($pid: String!){
+    getProductDescriptionData(pid: $pid) {
+       data {
+    		id
+        image
+        title
+        brand
+        modalno
+        price
+        fulldescription
+        shortdescription
+      }
+    image
+    imagearray
+    }
+  }
+`;
+
+export const CUSTOMERS_REVIEW = gql`
+   query getCustomerReviewData($productId: String!){
+    getCustomerReviewData(productId: $productId) {
+    id
+    postDate
+    comment
+    starRate
+    name
+    }
+  }
 `;

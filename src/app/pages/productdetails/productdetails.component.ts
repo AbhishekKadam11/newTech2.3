@@ -6,6 +6,8 @@ import { StateService } from '../../../app/@core/data/state.service';
 import { CartService } from '../cart/cart.service';
 import { NgxCarousel } from 'ngx-carousel';
 import { GlobalShared } from '../../app.global';
+import { Apollo } from 'apollo-angular';
+import { PRODUCT_DESCRIPTION, CUSTOMERS_REVIEW, CreateLinkMutationResponse } from '../../graphql';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -40,6 +42,7 @@ export class ProductdetailsComponent implements OnInit {
               private stateService: StateService,
               private cdRef: ChangeDetectorRef,
               public globalShared: GlobalShared,
+              private apollo: Apollo,
               private cartService: CartService) {
 
     this.stateService.setSidebarState(this.stateService.sidebars[2]);
@@ -65,30 +68,62 @@ export class ProductdetailsComponent implements OnInit {
       this.productid = params['productId'];
     });
 
-    this.productdetailsaervice.productDescriptionData(this.productid).subscribe((result) => {
-      // console.log(result);
-      this.product['brand'] = result['data']['brand'];
-      this.product['title'] = result['data']['title'];
-      this.product['price'] = result['data']['price'];
-      this.product['baseprice'] = result['data']['price'];
-      this.product['modalno'] = result['data']['modalno'];
-      this.product['shortdescription'] = result['data']['shortdescription'];
-      this.product['fulldescription'] = result['data']['fulldescription'];
-      this.product['image'] = result['image'];
-      this.product['productimages'] = result['imagearray'];
-      this.product['quantity'] = 1;
-      this.product['id'] = result['data']['_id'];
-    //  this.productData = result;
-    }, (err) => {
-      console.log(err);
+    // this.productdetailsaervice.productDescriptionData(this.productid).subscribe((result) => {
+    //   // console.log(result);
+    //   this.product['brand'] = result['data']['brand'];
+    //   this.product['title'] = result['data']['title'];
+    //   this.product['price'] = result['data']['price'];
+    //   this.product['baseprice'] = result['data']['price'];
+    //   this.product['modalno'] = result['data']['modalno'];
+    //   this.product['shortdescription'] = result['data']['shortdescription'];
+    //   this.product['fulldescription'] = result['data']['fulldescription'];
+    //   this.product['image'] = result['image'];
+    //   this.product['productimages'] = result['imagearray'];
+    //   this.product['quantity'] = 1;
+    //   this.product['id'] = result['data']['_id'];
+    // //  this.productData = result;
+    // }, (err) => {
+    //   console.log(err);
+    // });
+
+    this.apollo.watchQuery({
+      query: PRODUCT_DESCRIPTION,
+      variables: { pid: this.productid }
+    }).valueChanges.subscribe((response) => {
+      let data = response['data']['getProductDescriptionData'];
+        this.product['brand'] = data['data']['brand'];
+        this.product['title'] = data['data']['title'];
+        this.product['price'] = data['data']['price'];
+        this.product['baseprice'] = data['data']['price'];
+        this.product['modalno'] = data['data']['modalno'];
+        this.product['shortdescription'] = data['data']['shortdescription'];
+        this.product['fulldescription'] = data['data']['fulldescription'];
+        this.product['image'] = data['image'];
+        this.product['productimages'] = data['imagearray'];
+        this.product['quantity'] = 1;
+        this.product['id'] = data['data']['id'];
+      //console.log(data);
+    }, (error) => {
+      console.log("product description api " + error);
     });
 
-    this.productdetailsaervice.customerReviewData(this.productid).subscribe((result) => {
-      this.productReview = result;
-    //  console.log(result);
-      this.productStartRate(result);
-    }, (err) => {
-      console.log(err);
+    // this.productdetailsaervice.customerReviewData(this.productid).subscribe((result) => {
+    //   this.productReview = result;
+    // //  console.log(result);
+    //   this.productStartRate(result);
+    // }, (err) => {
+    //   console.log(err);
+    // });
+
+    this.apollo.watchQuery({
+      query: CUSTOMERS_REVIEW,
+      variables: { productId: this.productid }
+    }).valueChanges.subscribe((response) => {
+      let data = response['data']['getCustomerReviewData'];
+      this.productReview = data;
+      console.log(data);
+    }, (error) => {
+      console.log("product review api " + error);
     });
 
   }
@@ -97,7 +132,7 @@ export class ProductdetailsComponent implements OnInit {
     let rating: number = 0;
     data.forEach(val =>{
       rating += val['starRate'];
-    })
+    });
     this.starRate = (rating/data.length);
   //  console.log(this.starRate);
   }

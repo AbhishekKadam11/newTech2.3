@@ -60,7 +60,7 @@ export class ProductlistComponent implements OnInit, AfterViewInit, OnDestroy {
                     brand: "" }
     }).valueChanges.subscribe((response) => {
       this.getProductList(response['data']['productCategoryList']);
-      console.log(response); 
+  //    console.log(response);
     }, (error) => {
   
       console.log("test" + error); 
