@@ -68,24 +68,6 @@ export class ProductdetailsComponent implements OnInit {
       this.productid = params['productId'];
     });
 
-    // this.productdetailsaervice.productDescriptionData(this.productid).subscribe((result) => {
-    //   // console.log(result);
-    //   this.product['brand'] = result['data']['brand'];
-    //   this.product['title'] = result['data']['title'];
-    //   this.product['price'] = result['data']['price'];
-    //   this.product['baseprice'] = result['data']['price'];
-    //   this.product['modalno'] = result['data']['modalno'];
-    //   this.product['shortdescription'] = result['data']['shortdescription'];
-    //   this.product['fulldescription'] = result['data']['fulldescription'];
-    //   this.product['image'] = result['image'];
-    //   this.product['productimages'] = result['imagearray'];
-    //   this.product['quantity'] = 1;
-    //   this.product['id'] = result['data']['_id'];
-    // //  this.productData = result;
-    // }, (err) => {
-    //   console.log(err);
-    // });
-
     this.apollo.watchQuery({
       query: PRODUCT_DESCRIPTION,
       variables: { pid: this.productid }
@@ -106,14 +88,6 @@ export class ProductdetailsComponent implements OnInit {
     }, (error) => {
       console.log("product description api " + error);
     });
-
-    // this.productdetailsaervice.customerReviewData(this.productid).subscribe((result) => {
-    //   this.productReview = result;
-    // //  console.log(result);
-    //   this.productStartRate(result);
-    // }, (err) => {
-    //   console.log(err);
-    // });
 
     this.apollo.watchQuery({
       query: CUSTOMERS_REVIEW,
@@ -170,13 +144,13 @@ export class ProductdetailsComponent implements OnInit {
 
   AddProduct() {
   //  this.product['added'] = true;
-
     this.cartService.addProduct(this.product);
   }
 
   //-----product review-----
 
   checkLogin() {
+    //console.log(localStorage.getItem('auth_token'));
     if (localStorage.getItem('auth_token')) {
       this.router.navigate(['/pages/review', this.productid]);
     } else {

@@ -102,3 +102,11 @@ export const CUSTOMERS_REVIEW = gql`
     }
   }
 `;
+
+export const SET_CUSTOMER_REVIEW = gql`
+mutation productReview($input: ProductReviewInput!){
+  productReview(input: $input) {
+  id
+  }
+}
+`;

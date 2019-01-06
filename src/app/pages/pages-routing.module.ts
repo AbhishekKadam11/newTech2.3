@@ -43,6 +43,9 @@ const routes: Routes = [{
     path: 'profile',
     loadChildren: 'app/pages/profile/profile.module#ProfileModule',
   }, {
+    path: 'review/:productId',
+    loadChildren: './productreview/productreview.module#ProductreviewModule',
+  }, {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

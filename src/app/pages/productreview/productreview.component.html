@@ -1,0 +1,39 @@
+<nb-card>
+  <nb-card-header>Write review</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-xxxl-4 col-xxl-4 col-lg-4 col-md-8 col-is-8">
+        <img [src]="globalShared['urlpath']+ product['image']"
+             src-fallback="{{globalShared['defaultimage']}}"
+             class="thumbnail mx-auto d-block">
+      </div>
+      <div class="col-xxxl-4 col-xxl-4 col-lg-4 col-md-8 col-is-8">
+        <div class="row ml10">
+          <h3>{{product['title']}}</h3>
+        </div>
+         <div class="row ml10">
+          <h6>{{product['brand']}}</h6>
+        </div>
+        <div class="row ml10">
+          <ngb-rating [(rate)]="review['starRate']" max=5 style="font-size: 2rem">
+            <ng-template let-fill="fill">
+              <span class="star fill text-warning" [class.filled]="fill === 100">
+                <i class="ion-android-star" *ngIf="fill === 100"></i>
+                <i class="ion-android-star-outline" *ngIf="fill !== 100"></i>
+              </span>
+            </ng-template>
+          </ngb-rating>
+        </div>
+        <div class="row ">
+          <nb-card-body>
+            <textarea [(ngModel)]="review['userReview']"  class="form-control" placeholder="Message"></textarea>
+            <!--<ckeditor name="editor1" [(ngModel)]="review['userReview']" [config]="{ extraPlugins: 'divarea', height: '120' }"  ></ckeditor>-->
+          </nb-card-body>
+        </div>
+        <div class="row ml10">
+          <button class="btn btn-success" (click)="submitReview()" type="submit">Post</button>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
