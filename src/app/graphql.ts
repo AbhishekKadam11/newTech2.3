@@ -110,3 +110,11 @@ mutation productReview($input: ProductReviewInput!){
   }
 }
 `;
+
+export const SET_CUSTOMER_ORDER = gql`
+mutation placeOrder($input: OrdersInput!){
+  placeOrder(input: $input) {
+  id
+  }
+}
+`;

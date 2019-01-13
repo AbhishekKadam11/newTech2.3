@@ -1,0 +1,32 @@
+.thumbnail {
+  width: 130px;
+  height: 160px;
+}
+.section {
+  display: inline-block;
+
+}
+
+.section > div.wrap {
+  clear: both;
+}
+
+.img-center {margin:0 auto;}
+
+.section div {
+  position: relative;
+  //float: left;
+  padding: 0 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row.display-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
