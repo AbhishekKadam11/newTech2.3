@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService} from '../searchresult/searchresult.service';
 import { GlobalShared } from '../../app.global';
+import { Apollo } from 'apollo-angular';
+import {SEARCH_ITEM, CreateLinkMutationResponse, PRODUCT_DESCRIPTION} from '../../graphql';
 
 @Component({
   selector: 'ngx-searchresult',
@@ -19,6 +21,7 @@ export class SearchresultComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public globalShared: GlobalShared,
+              private apollo: Apollo,
               private searchService: SearchService) {
 
   }
@@ -26,15 +29,20 @@ export class SearchresultComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.searchkey = params['searchkey'];
-      this.searchService.searchItem(params['searchkey']).subscribe((result) => {
-        this.products = result;
-        for (const value of this.products) {
-          this.productType[value['category']] = false;
-        }
+      this.apollo.watchQuery({
+        query: SEARCH_ITEM,
+        variables: { searchKey: this.searchkey,
+                     category: ""}
+      }).valueChanges.subscribe((response) => {
+        let data = response['data']['searchItem'];
+        this.products = data;
+          for (const value of this.products) {
+            this.productType[value['category']] = false;
+          }
+          console.log(data);
       }, (error) => {
-      //  console.log(error);
-        this.errorMessage = error['error'];
-      })
+        console.log("product search api " + error);
+      });
     });
   }
 
@@ -45,7 +53,10 @@ export class SearchresultComponent implements OnInit {
     }
 
     if (event.target.checked) {
-      this.userChoice.push(category);
+     // this.userChoice.push(category);
+      if(this.userChoice.indexOf(category) === -1) {
+        this.userChoice.push(category);
+      }
     } else {
       const index = this.userChoice.indexOf(category);
       this.userChoice.splice(index, 1);
@@ -58,12 +69,28 @@ export class SearchresultComponent implements OnInit {
       this.userChoice = [];
     }
 
-    this.searchService.searchItem( this.searchkey, this.userChoice).subscribe((result) => {
-      this.products = result;
-      console.log( this.products);
+    // this.searchService.searchItem( this.searchkey, this.userChoice).subscribe((result) => {
+    //   this.products = result;
+    //   console.log( this.products);
+    // }, (error) => {
+    //   this.errorMessage = error['error'];
+    // })
+    console.log(this.userChoice);
+    this.apollo.watchQuery({
+      query: SEARCH_ITEM,
+      variables: { searchKey: this.searchkey,
+                   category:  this.userChoice.length > 0 ? this.userChoice : ""}
+    }).valueChanges.subscribe((response) => {
+      let data = response['data']['searchItem'];
+      this.products = data;
+      for (const value of this.products) {
+        this.productType[value['category']] = false;
+      }
+      console.log(data);
     }, (error) => {
-      this.errorMessage = error['error'];
-    })
+      console.log("product search api " + error);
+    });
+
   }
 
   productDetails(productId) {

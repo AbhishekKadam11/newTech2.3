@@ -118,3 +118,21 @@ mutation placeOrder($input: OrdersInput!){
   }
 }
 `;
+
+export const SEARCH_ITEM = gql`
+   query searchItem($searchKey: String!, $category: String){
+    searchItem(searchKey: $searchKey, category: $category) {
+    id
+    title
+    brand
+    category
+    modalno
+    price
+    image
+    shortdescription
+    fulldescription
+    productimages
+    arrivaldate
+    }
+  }
+`;
