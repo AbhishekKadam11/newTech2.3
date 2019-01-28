@@ -20,7 +20,7 @@
           <nb-card class="col-xxxl-2 col-xxl-2 col-lg-2 col-md-2 section" style="flex-wrap: wrap;
         flex: initial; ">
             <nb-card-body>
-               <a (click)="productDetails(p['_id'])">
+               <a (click)="productDetails(p['id'])">
                <div class="row">
                     <img [src]="globalShared['urlpath'] + p['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                  </div>

@@ -34,6 +34,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   }
 
   getmenus(brand, ptype) {
+    console.log(brand);
     this.brands = brand;
     this.productType = ptype;
   }

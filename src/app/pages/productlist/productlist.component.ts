@@ -52,7 +52,8 @@ export class ProductlistComponent implements OnInit, AfterViewInit, OnDestroy {
     // this.productState$ = this.productListService.productListData(this.productType)
     //   .subscribe((result) => {
     //     this.getProductList(result);
-    //   })
+    //     console.log(result);
+    //   });
 
     this.apollo.watchQuery({
       query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
@@ -60,39 +61,41 @@ export class ProductlistComponent implements OnInit, AfterViewInit, OnDestroy {
                     brand: "" }
     }).valueChanges.subscribe((response) => {
       this.getProductList(response['data']['productCategoryList']);
-  //    console.log(response);
+      console.log(response);
     }, (error) => {
-  
-      console.log("test" + error); 
+
+      console.log("test" + error);
     });
   }
 
   getProductList(result) {
     this.products = result;
-          if (result.hasOwnProperty('Motherboard')) {
-            this.products = result['Motherboard'];
-            this.title = 'Motherboard';
-            let brands = this.getBrandname(result['Motherboard']);
-            this.sidebar.getmenus(brands, this.title);
-          }
-          if (result.hasOwnProperty('Processor')) {
-            this.products = result['Processor'];
-            this.title = 'Processor';
-            let brands = this.getBrandname(result['Processor']);
-            this.sidebar.getmenus(brands, this.title);
-          }
-          if (result.hasOwnProperty('Graphic Card')) {
-            this.products = result['Graphic Card'];
-            this.title = 'Graphic Card';
-            let brands = this.getBrandname(result['Graphic Card']);
-            this.sidebar.getmenus(brands, this.title);
-          }
-          if (result.hasOwnProperty('Router')) {
-            this.products = result['Router'];
-            this.title = 'Router';
-            let brands = this.getBrandname(result['Router']);
-            this.sidebar.getmenus(brands, this.title);
-          }
+    let brands = this.getBrandname(result);
+    this.sidebar.getmenus(brands, this.title);
+    // if (result.hasOwnProperty('Motherboard')) {
+    //   this.products = result['Motherboard'];
+    //   this.title = 'Motherboard';
+    //   let brands = this.getBrandname(result['Motherboard']);
+    //   this.sidebar.getmenus(brands, this.title);
+    // }
+    // if (result.hasOwnProperty('Processor')) {
+    //   this.products = result['Processor'];
+    //   this.title = 'Processor';
+    //   let brands = this.getBrandname(result['Processor']);
+    //   this.sidebar.getmenus(brands, this.title);
+    // }
+    // if (result.hasOwnProperty('Graphic Card')) {
+    //   this.products = result['Graphic Card'];
+    //   this.title = 'Graphic Card';
+    //   let brands = this.getBrandname(result['Graphic Card']);
+    //   this.sidebar.getmenus(brands, this.title);
+    // }
+    // if (result.hasOwnProperty('Router')) {
+    //   this.products = result['Router'];
+    //   this.title = 'Router';
+    //   let brands = this.getBrandname(result['Router']);
+    //   this.sidebar.getmenus(brands, this.title);
+    // }
     this.isRunning = false;
   }
 
@@ -123,8 +126,8 @@ export class ProductlistComponent implements OnInit, AfterViewInit, OnDestroy {
   public getBrandname(products) {
     let brands = [];
      for ( let i = 0; i < products.length; i++ ) {
-       if ( !(brands.indexOf(products[i]['data']['brand']) > -1)) {
-         brands.push(products[i]['data']['brand']);
+       if ( !(brands.indexOf(products[i]['brand']) > -1)) {
+         brands.push(products[i]['brand']);
        }
     }
     return brands;

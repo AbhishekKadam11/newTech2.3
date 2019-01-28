@@ -54,7 +54,7 @@ export class SearchresultComponent implements OnInit {
 
     if (event.target.checked) {
      // this.userChoice.push(category);
-      if(this.userChoice.indexOf(category) === -1) {
+      if(this.userChoice.indexOf(category) == -1) {
         this.userChoice.push(category);
       }
     } else {
@@ -69,12 +69,6 @@ export class SearchresultComponent implements OnInit {
       this.userChoice = [];
     }
 
-    // this.searchService.searchItem( this.searchkey, this.userChoice).subscribe((result) => {
-    //   this.products = result;
-    //   console.log( this.products);
-    // }, (error) => {
-    //   this.errorMessage = error['error'];
-    // })
     console.log(this.userChoice);
     this.apollo.watchQuery({
       query: SEARCH_ITEM,
