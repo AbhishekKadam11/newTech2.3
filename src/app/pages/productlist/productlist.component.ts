@@ -14,7 +14,7 @@ import { CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, PRODUCT_CATEGO
   styleUrls: ['./productlist.component.scss'],
 })
 
-export class ProductlistComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ProductlistComponent implements OnInit, AfterViewInit {
 
   title: string;
   productType: string;
@@ -39,85 +39,33 @@ export class ProductlistComponent implements OnInit, AfterViewInit, OnDestroy {
     this.route.params.subscribe(params => {
       this.productType = params['productType'];
     });
-
-    this.productState$ = this.productListService.notifyObservable$.subscribe((result) => {
-      this.products = {};
-      if (result) {
-        this.getFilteredProductList(result);
-      }
-    });
   }
 
   ngAfterViewInit() {
-    // this.productState$ = this.productListService.productListData(this.productType)
-    //   .subscribe((result) => {
-    //     this.getProductList(result);
-    //     console.log(result);
-    //   });
-
     this.apollo.watchQuery({
       query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
       variables: {  category: this.productType,
                     brand: "" }
     }).valueChanges.subscribe((response) => {
-      this.getProductList(response['data']['productCategoryList']);
-      console.log(response);
+      this.getProductBrandList(response['data']['productCategoryList']);
+      if (response['data']['productCategoryList'].length !== 0) {
+        this.productListService.productList(response);
+        this.productListService.currentProducts.subscribe(data => {
+          this.products = data['data']['productCategoryList'];
+        });
+      }
     }, (error) => {
-
       console.log("test" + error);
     });
   }
 
-  getProductList(result) {
-    this.products = result;
+  getProductBrandList(result) {
     let brands = this.getBrandname(result);
-    this.sidebar.getmenus(brands, this.title);
-    // if (result.hasOwnProperty('Motherboard')) {
-    //   this.products = result['Motherboard'];
-    //   this.title = 'Motherboard';
-    //   let brands = this.getBrandname(result['Motherboard']);
-    //   this.sidebar.getmenus(brands, this.title);
-    // }
-    // if (result.hasOwnProperty('Processor')) {
-    //   this.products = result['Processor'];
-    //   this.title = 'Processor';
-    //   let brands = this.getBrandname(result['Processor']);
-    //   this.sidebar.getmenus(brands, this.title);
-    // }
-    // if (result.hasOwnProperty('Graphic Card')) {
-    //   this.products = result['Graphic Card'];
-    //   this.title = 'Graphic Card';
-    //   let brands = this.getBrandname(result['Graphic Card']);
-    //   this.sidebar.getmenus(brands, this.title);
-    // }
-    // if (result.hasOwnProperty('Router')) {
-    //   this.products = result['Router'];
-    //   this.title = 'Router';
-    //   let brands = this.getBrandname(result['Router']);
-    //   this.sidebar.getmenus(brands, this.title);
-    // }
+    let  title = result.length !=0 ? result[0]['category'] : null;
+    this.sidebar.getmenus(brands, title);
     this.isRunning = false;
   }
 
-  getFilteredProductList(result) {
-    this.products = result;
-    if (result.hasOwnProperty('Motherboard')) {
-      this.products = result['Motherboard'];
-    }
-    if (result.hasOwnProperty('Processor')) {
-      this.products = result['Processor'];
-    }
-    if (result.hasOwnProperty('Graphic Card')) {
-      this.products = result['Graphic Card'];
-    }
-    if (result.hasOwnProperty('motherboard')) {
-      this.products = result['motherboard'];
-    }
-    if (result.hasOwnProperty('Router')) {
-      this.products = result['Router'];
-    }
-    this.isRunning = false;
-  }
 
   productDetails(productId) {
     this.router.navigate(['/pages/productdetails', productId ]);
@@ -133,8 +81,6 @@ export class ProductlistComponent implements OnInit, AfterViewInit, OnDestroy {
     return brands;
   }
 
-  ngOnDestroy() {
-    this.productState$.unsubscribe();
-  }
+
 
 }

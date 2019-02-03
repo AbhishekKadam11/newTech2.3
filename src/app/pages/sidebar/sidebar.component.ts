@@ -3,6 +3,8 @@ import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/withLatestFrom';
 import {ProductListService} from '../productlist/productlist.service';
 import {ProductlistComponent} from '../productlist/productlist.component';
+import { Apollo } from 'apollo-angular';
+import {PRODUCT_CATEGORY_WISE_LIST_QUERY} from "../../graphql";
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -19,8 +21,10 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   checkboxValue = {};
   private subscription: Subscription;
   protected productState$: Subscription;
+  public products: any;
 
-  constructor(private productListService: ProductListService) {
+  constructor(private productListService: ProductListService,
+              private apollo: Apollo) {
 
   }
 
@@ -29,12 +33,11 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.productListService.notifyObservable$.subscribe((res) => {
-    });
+
   }
 
   getmenus(brand, ptype) {
-    console.log(brand);
+
     this.brands = brand;
     this.productType = ptype;
   }
@@ -47,9 +50,16 @@ export class SidebarComponent implements AfterViewInit, OnInit {
       const index = this.brandChoice.indexOf(brand);
       this.brandChoice.splice(index, 1);
     }
-    this.productListService.productListData(this.productType, this.brandChoice).subscribe((res) => {
-      //console.log(res);
+    this.apollo.watchQuery({
+      query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
+      variables: {  category: this.productType,
+        brand: this.brandChoice.length > 0 ? this.brandChoice : null  }
+    }).valueChanges.subscribe((response) => {
+      this.productListService.productList(response);
+    }, (error) => {
+      console.log("test" + error);
     });
+
   }
 
 

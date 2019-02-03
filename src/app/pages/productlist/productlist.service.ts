@@ -10,48 +10,53 @@ import {GlobalShared} from '../../app.global';
 export class ProductListService {
   private notify = new Subject();
   notifyObservable$ = this.notify.asObservable();
-  public productData: any;
+  //public productData: any;
+  private productSource = new BehaviorSubject([]);
+  currentProducts = this.productSource.asObservable();
 
   constructor(private http: Http, private globalShared: GlobalShared) {
 
   }
 
-
-  productListData(ptype, selectedChoices?) {
-   const headers = new Headers();
-   headers.append('Content-Type', 'application/json');
-
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('ptype', ptype);
-    params.set('selectedChoices', selectedChoices);
-
-
-    return this.http
-      .get(
-        this.globalShared['serverpath'] + 'productList',  {
-          search: params,
-         headers,
-        },
-        // 'https://newtechserver.herokuapp.com/api/productList',  {
-        //   search: params,
-        //   headers,
-        // },
-      )
-      .map(res => res.json())
-      .map((res) => {
-        this.notify.next(res);
-        return res;
-      });
+  productList(data: any) {
+    this.productSource.next(data)
   }
 
-  public setProductData(data) {
-    this.notify.next(data);
-    this.productData = data;
-  }
+  // productListData(ptype, selectedChoices?) {
+  //  const headers = new Headers();
+  //  headers.append('Content-Type', 'application/json');
+  //
+  //   let params: URLSearchParams = new URLSearchParams();
+  //   params.set('ptype', ptype);
+  //   params.set('selectedChoices', selectedChoices);
+  //
+  //
+  //   return this.http
+  //     .get(
+  //       this.globalShared['serverpath'] + 'productList',  {
+  //         search: params,
+  //        headers,
+  //       },
+  //       // 'https://newtechserver.herokuapp.com/api/productList',  {
+  //       //   search: params,
+  //       //   headers,
+  //       // },
+  //     )
+  //     .map(res => res.json())
+  //     .map((res) => {
+  //       this.notify.next(res);
+  //       return res;
+  //     });
+  // }
 
-  public getproductData() {
-    return this.productData;
-  }
+  // public setProductData(data) {
+  //   this.notify.next(data);
+  //   this.productData = data;
+  // }
+  //
+  // public getproductData() {
+  //   return this.productData;
+  // }
 
 
 }
