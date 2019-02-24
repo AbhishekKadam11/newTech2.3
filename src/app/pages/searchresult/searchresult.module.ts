@@ -5,7 +5,7 @@ import { SearchresultRoutingModule, routedComponents } from './searchresult-rout
 import { SearchService } from './searchresult.service';
 // import { NgUploaderModule } from 'ngx-uploader';
 // import { FancyImageUploaderModule } from 'ng2-fancy-image-uploader';
-// import { SidebarComponent } from '../sidebar/sidebar.component';
+import { SearchsidebarComponent } from '../searchsidebar/searchsidebar.component';
 import { ImgFallbackModule } from 'ngx-img-fallback';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { ImgFallbackModule } from 'ngx-img-fallback';
   ],
   declarations: [
     ...routedComponents,
- //   SidebarComponent,
+    SearchsidebarComponent,
   ],
   providers: [SearchService],
 

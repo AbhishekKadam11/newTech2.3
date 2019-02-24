@@ -1,16 +1,18 @@
-<div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
-  <nb-card>
-    <div class="btn-group btn-group-toggle btn-group-full-width" data-toggle="buttons">
-      <label ngbButtonLabel class="btn btn-primary" *ngFor="let key of objectKeys(productType)"
-             [class.active]="productType[key]">
-        <input ngbButton type="checkbox" [(ngModel)]="productType[key]" (change)="filterProducts($event, key)"> {{key}}
-      </label>
-    </div>
-  </nb-card>
+<ngx-searchsidebar></ngx-searchsidebar>
+
+<div class="col-xxxl-10 col-xxl-10 col-lg-10 col-md-10" style="float: right">
+  <!--<nb-card>-->
+    <!--<div class="btn-group btn-group-toggle btn-group-full-width" data-toggle="buttons">-->
+      <!--<label ngbButtonLabel class="btn btn-primary" *ngFor="let key of objectKeys(productType)"-->
+             <!--[class.active]="productType[key]">-->
+        <!--<input ngbButton type="checkbox" [(ngModel)]="productType[key]" (change)="filterProducts($event, key)"> {{key}}-->
+      <!--</label>-->
+    <!--</div>-->
+  <!--</nb-card>-->
 
 
   <nb-card>
-    <nb-card-header class="color bg-info"><h3>{{searchkey}}</h3></nb-card-header>
+    <nb-card-header class="color"><h3>{{searchkey}}</h3></nb-card-header>
     <nb-card-body>
       <h5>{{errorMessage}}</h5>
       <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12" *ngIf="!errorMessage">
