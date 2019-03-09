@@ -62,7 +62,7 @@ export class ProductlistComponent implements OnInit, AfterViewInit {
   getProductBrandList(result) {
     let brands = this.getBrandname(result);
     let  title = result.length !=0 ? result[0]['category'] : null;
-    this.sidebar.getmenus(brands, title);
+   // this.sidebar.getmenus(brands, title);
     this.isRunning = false;
   }
 

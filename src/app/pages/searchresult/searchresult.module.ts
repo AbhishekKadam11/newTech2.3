@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { SearchresultRoutingModule, routedComponents } from './searchresult-routing.module';
@@ -18,7 +18,10 @@ import { ImgFallbackModule } from 'ngx-img-fallback';
   ],
   declarations: [
     ...routedComponents,
-    SearchsidebarComponent,
+  //  SearchsidebarComponent,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [SearchService],
 
