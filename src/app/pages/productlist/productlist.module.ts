@@ -5,6 +5,7 @@ import {ProductListService} from './productlist.service';
 // import { SidebarComponent } from '../sidebar/sidebar.component';
 // import { SearchsidebarComponent} from "../searchsidebar/searchsidebar.component";
 import {ImgFallbackModule} from 'ngx-img-fallback';
+import {SidebarModule} from "../sidebar/sidebar.module";
 // import {SearchsidebarModule} from "../searchsidebar/searchsidebar.module";
 
 @NgModule({
@@ -12,6 +13,7 @@ import {ImgFallbackModule} from 'ngx-img-fallback';
     ThemeModule,
     ProductlistRoutingModule,
     ImgFallbackModule,
+    SidebarModule
    // SearchsidebarModule
   ],
   declarations: [

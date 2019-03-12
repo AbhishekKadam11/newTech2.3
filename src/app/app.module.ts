@@ -36,6 +36,7 @@ import { GraphQLModule } from './apollo.config';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
+
   ],
   bootstrap: [AppComponent],
   providers: [
