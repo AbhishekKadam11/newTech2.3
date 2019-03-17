@@ -9,6 +9,7 @@ import {SidebarComponent} from "./sidebar.component";
   imports: [
     //ThemeModule,
     // SidebarRoutingModule,
+
   ],
   declarations: [
     SidebarComponent,

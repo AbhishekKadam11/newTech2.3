@@ -6,6 +6,7 @@ import {ProductlistComponent} from '../productlist/productlist.component';
 import { Apollo } from 'apollo-angular';
 import {PRODUCT_CATEGORY_WISE_LIST_QUERY} from "../../graphql";
 
+
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: 'ngx-sidebarmenues',

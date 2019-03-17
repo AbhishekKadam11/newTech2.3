@@ -22,6 +22,7 @@ import { GlobalShared } from './app.global';
 import { CartService } from './pages/cart/cart.service';
 
 import { GraphQLModule } from './apollo.config';
+import {NgxAsideModule} from "ngx-aside";
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,8 @@ import { GraphQLModule } from './apollo.config';
     AppRoutingModule,
     HttpModule,
     GraphQLModule,
+    NgxAsideModule,
+    BrowserAnimationsModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),

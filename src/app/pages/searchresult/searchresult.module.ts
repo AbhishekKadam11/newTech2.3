@@ -18,6 +18,7 @@ import { ImgFallbackModule } from 'ngx-img-fallback';
   ],
   declarations: [
     ...routedComponents,
+
   //  SearchsidebarComponent,
   ],
   schemas: [
