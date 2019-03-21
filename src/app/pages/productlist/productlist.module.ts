@@ -7,6 +7,8 @@ import {ProductListService} from './productlist.service';
 import {ImgFallbackModule} from 'ngx-img-fallback';
 import {SidebarModule} from "../sidebar/sidebar.module";
 import {SidebarComponent} from "../sidebar/sidebar.component";
+import {SharedModule} from "../shared/sharedmodule";
+
 // import {SearchsidebarModule} from "../searchsidebar/searchsidebar.module";
 
 @NgModule({
@@ -14,18 +16,18 @@ import {SidebarComponent} from "../sidebar/sidebar.component";
     ThemeModule,
     ProductlistRoutingModule,
     ImgFallbackModule,
+    SharedModule
   //  SidebarModule
    // SearchsidebarModule
   ],
   declarations: [
     ...routedComponents,
-
-     SidebarComponent,
+    // SidebarComponent,
     // SearchsidebarComponent,
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+  // schemas: [
+  //   CUSTOM_ELEMENTS_SCHEMA
+  // ],
   providers: [ProductListService],
 
 })

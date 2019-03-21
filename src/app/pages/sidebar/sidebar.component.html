@@ -1,14 +1,15 @@
-<!--<nb-sidebar class="menu-sidebar left"-->
-            <!--tag="menu-sidebar" [left]="true"-->
-            <!--responsive>-->
-  <!--<div class="menu-sidebar left">-->
-<!--<span class="menulist">-->
-  <!--<a title="Dashboard">-->
- <!--<i class="ion-funnel"></i>-->
-  <!--<span class="menu-title">Filters</span>-->
-<!--</a>-->
-<!--</span>-->
-    <!--<hr>-->
+
+<nb-sidebar class="menu-sidebar left"
+            tag="menu-sidebar" [left]="true"
+            responsive>
+  <div class="menu-sidebar left">
+<span class="menulist">
+  <a title="Dashboard">
+ <i class="ion-funnel"></i>
+  <span class="menu-title">Filters</span>
+</a>
+</span>
+    <hr>
     <!--<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">-->
       <!--<ngb-panel title="Brands">-->
         <!--<ng-template ngbPanelContent>-->
@@ -19,23 +20,20 @@
         <!--</ng-template>-->
       <!--</ngb-panel>-->
     <!--</ngb-accordion>-->
-  <!--</div>-->
-<!--</nb-sidebar>-->
+  </div>
+</nb-sidebar>
+
+
 <!--<div class="col-xxxl-2 col-xxl-2 col-lg-2 col-md-2" style="float: left">-->
-  <ngx-aside #NgxAsidePanelRight
+  <!--<nb-card>-->
+    <!--<nb-card-header class="">-->
+      <!--<i class="ion-funnel"></i>-->
+      <!--<span class="menu-title">Filters</span>-->
+    <!--</nb-card-header>-->
+    <!--<nb-card-body>-->
 
-             (cancel)="onCancel()"
-             (submit)="onSave()"
-             [position]="'left'"
-             [title]="'Title'"
-             [cancelButtonTitle]="'Discard'"
-             [submitButtonTitle]="'Send'"
+     <!--test - {{products}}-->
 
-             [closeOnEscape]="false"
-             [showOverlay]="false"
-
-             [showDefaultFooter]="true"
-             [showDefaultHeader]="true">
-
-  </ngx-aside>
+    <!--</nb-card-body>-->
+  <!--</nb-card>-->
 <!--</div>-->

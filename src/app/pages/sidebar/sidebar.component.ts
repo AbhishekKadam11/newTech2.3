@@ -8,7 +8,7 @@ import {PRODUCT_CATEGORY_WISE_LIST_QUERY} from "../../graphql";
 
 
 @Component({
-  encapsulation: ViewEncapsulation.None,
+   encapsulation: ViewEncapsulation.None,
   selector: 'ngx-sidebarmenues',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
@@ -23,8 +23,9 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   private subscription: Subscription;
   protected productState$: Subscription;
   public products: any;
+  public showBlade: boolean = true;
 
-  constructor(private productListService: ProductListService,
+  constructor(
               private apollo: Apollo) {
 
   }
@@ -56,7 +57,9 @@ export class SidebarComponent implements AfterViewInit, OnInit {
       variables: {  category: this.productType,
         brand: this.brandChoice.length > 0 ? this.brandChoice : null  }
     }).valueChanges.subscribe((response) => {
-      this.productListService.productList(response);
+      console.log("sidebar " + JSON.stringify(response));
+    //  this.products =  JSON.stringify(response);
+  //    this.productListService.productList(response);
     }, (error) => {
       console.log("test" + error);
     });

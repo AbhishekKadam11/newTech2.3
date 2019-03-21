@@ -3,18 +3,22 @@ import { ThemeModule } from '../../@theme/theme.module';
 // import { SidebarRoutingModule, routedComponents } from './sidebar-routing.module';
 import { SidebarService } from './sidebar.service';
 import {SidebarComponent} from "./sidebar.component";
+import {SharedModule} from "../shared/sharedmodule";
+import {NbSidebarModule} from "@nebular/theme";
 
 
 @NgModule({
   imports: [
-    //ThemeModule,
+    ThemeModule,
     // SidebarRoutingModule,
-
+    SharedModule,
+    NbSidebarModule,
   ],
   declarations: [
-    SidebarComponent,
+ //   SidebarComponent,
 
   ],
+
  // providers: [SidebarService],
 
 })
