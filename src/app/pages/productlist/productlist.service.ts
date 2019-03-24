@@ -10,8 +10,8 @@ import {GlobalShared} from '../../app.global';
 export class ProductListService {
   private notify = new Subject();
   notifyObservable$ = this.notify.asObservable();
-  //public productData: any;
-  private productSource = new BehaviorSubject([]);
+  public products: any;
+  public productSource = new BehaviorSubject([]);
   currentProducts = this.productSource.asObservable();
 
   constructor(private http: Http, private globalShared: GlobalShared) {
@@ -19,7 +19,22 @@ export class ProductListService {
   }
 
   productList(data: any) {
-    this.productSource.next(data)
+    let productData =  data['data'].hasOwnProperty('productCategoryList') ? data['data']['productCategoryList'] : data['data']['searchItem'];
+    this.products = productData;
+    this.productSource.next(productData);
+  }
+
+  public getFilteredProduct(brand) {
+    let filteredProducts = [];
+    for ( let i = 0; i < brand.length; i++ ) {
+      for ( let j = 0; j < this.products.length; j++ ) {
+        if(brand[i]=== this.products[j]['brand']){
+          filteredProducts.push(this.products[j]);
+        }
+      }
+    }
+   // this.products = filteredProducts;
+    this.productSource.next(filteredProducts);
   }
 
   // productListData(ptype, selectedChoices?) {

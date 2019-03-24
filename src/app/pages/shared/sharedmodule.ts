@@ -4,11 +4,13 @@ import {ProductlistModule} from "../productlist/productlist.module";
 import {SearchresultModule} from "../searchresult/searchresult.module";
 import {CommonModule} from "@angular/common";
 import {NbSidebarModule} from "@nebular/theme";
+import {ThemeModule} from "../../@theme/theme.module";
 
 @NgModule({
   imports: [
    CommonModule,
-    NbSidebarModule
+    NbSidebarModule,
+    ThemeModule,
   ],
   declarations: [
     SidebarComponent

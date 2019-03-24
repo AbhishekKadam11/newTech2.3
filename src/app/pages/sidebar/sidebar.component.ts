@@ -25,11 +25,10 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   public products: any;
   public showBlade: boolean = true;
 
-  constructor(
+  constructor(private productListService: ProductListService,
               private apollo: Apollo) {
 
   }
-
   ngAfterViewInit() {
 
   }
@@ -52,17 +51,18 @@ export class SidebarComponent implements AfterViewInit, OnInit {
       const index = this.brandChoice.indexOf(brand);
       this.brandChoice.splice(index, 1);
     }
-    this.apollo.watchQuery({
-      query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
-      variables: {  category: this.productType,
-        brand: this.brandChoice.length > 0 ? this.brandChoice : null  }
-    }).valueChanges.subscribe((response) => {
-      console.log("sidebar " + JSON.stringify(response));
-    //  this.products =  JSON.stringify(response);
-  //    this.productListService.productList(response);
-    }, (error) => {
-      console.log("test" + error);
-    });
+    this.productListService.getFilteredProduct(this.brandChoice);
+    //----------api request----------
+    // this.apollo.watchQuery({
+    //   query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
+    //   variables: {  category: this.productType,
+    //     brand: this.brandChoice.length > 0 ? this.brandChoice : null  }
+    // }).valueChanges.subscribe((response) => {
+    // //  this.products =  JSON.stringify(response);
+    //   this.productListService.productList(response);
+    // }, (error) => {
+    //   console.log("test" + error);
+    // });
 
   }
 

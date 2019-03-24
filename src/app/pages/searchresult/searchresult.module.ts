@@ -9,6 +9,7 @@ import { SearchsidebarComponent } from '../searchsidebar/searchsidebar.component
 import { ImgFallbackModule } from 'ngx-img-fallback';
 import {SidebarComponent} from "../sidebar/sidebar.component";
 import {SharedModule} from "../shared/sharedmodule";
+import {ProductListService} from "../productlist/productlist.service";
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ import {SharedModule} from "../shared/sharedmodule";
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [SearchService],
+  providers: [SearchService, ProductListService],
 
 })
 export class SearchresultModule { }

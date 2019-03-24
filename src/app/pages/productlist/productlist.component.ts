@@ -51,7 +51,7 @@ export class ProductlistComponent implements OnInit, AfterViewInit {
       if (response['data']['productCategoryList'].length !== 0) {
         this.productListService.productList(response);
         this.productListService.currentProducts.subscribe(data => {
-          this.products = data['data']['productCategoryList'];
+          this.products = data;
         });
       }
     }, (error) => {
@@ -62,24 +62,27 @@ export class ProductlistComponent implements OnInit, AfterViewInit {
   getProductBrandList(result) {
     let brands = this.getBrandname(result);
     let  title = result.length !=0 ? result[0]['category'] : null;
-   // this.sidebar.getmenus(brands, title);
+    this.sidebar.getmenus(brands, title);
     this.isRunning = false;
   }
+
+  public getBrandname(products) {
+    let brands = [];
+    for ( let i = 0; i < products.length; i++ ) {
+      if ( !(brands.indexOf(products[i]['brand']) > -1)) {
+        brands.push(products[i]['brand']);
+      }
+    }
+    return brands;
+  }
+
 
 
   productDetails(productId) {
     this.router.navigate(['/pages/productdetails', productId ]);
   }
 
-  public getBrandname(products) {
-    let brands = [];
-     for ( let i = 0; i < products.length; i++ ) {
-       if ( !(brands.indexOf(products[i]['brand']) > -1)) {
-         brands.push(products[i]['brand']);
-       }
-    }
-    return brands;
-  }
+
 
 
 
