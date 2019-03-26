@@ -40,11 +40,14 @@ export class SearchresultComponent implements OnInit {
                      category: ""}
       }).valueChanges.subscribe((response) => {
         let data = response['data']['searchItem'];
-        this.products = data;
-          for (const value of this.products) {
+        // this.products = data;
+          for (const value of data) {
             this.productType[value['category']] = false;
           }
         this.productListService.productList(response);
+        this.productListService.currentProducts.subscribe(data => {
+          this.products = data;
+        });
         this.getProductBrandList(response['data']['searchItem']);
        //   console.log(data);
       }, (error) => {

@@ -26,15 +26,19 @@ export class ProductListService {
 
   public getFilteredProduct(brand) {
     let filteredProducts = [];
-    for ( let i = 0; i < brand.length; i++ ) {
-      for ( let j = 0; j < this.products.length; j++ ) {
-        if(brand[i]=== this.products[j]['brand']){
-          filteredProducts.push(this.products[j]);
+    if(brand.length !==0) {
+      for ( let i = 0; i < brand.length; i++ ) {
+        for ( let j = 0; j < this.products.length; j++ ) {
+          if(brand[i]=== this.products[j]['brand']){
+            filteredProducts.push(this.products[j]);
+          }
         }
       }
+      this.productSource.next(filteredProducts);
+    } else {
+      this.productSource.next(this.products);
     }
-   // this.products = filteredProducts;
-    this.productSource.next(filteredProducts);
+
   }
 
   // productListData(ptype, selectedChoices?) {
