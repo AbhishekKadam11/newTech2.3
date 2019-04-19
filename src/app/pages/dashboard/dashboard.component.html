@@ -36,12 +36,10 @@
             </a>          
           </ngu-carousel>
         </div>
-
       </nb-card-body>
       <nb-card-footer style="padding: 0.5rem">
         <nb-actions size="medium" fullWidth>
           <nb-action>
-
               <i style="font-size: 2rem" class="nb-grid-b-outline"></i>
             <a href="#/pages/productlist/Motherboard" routerLink="['../pages/productlist', 'Motherboard']"><span>View More</span>
             </a>
@@ -66,7 +64,6 @@
           <div class="rect5"></div>
          </div>
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12" >
-       
           <ngu-carousel #myCarousel [inputs]="carouselTile"  (carouselLoad)="carouselTileLoad($event)" [dataSource]="processor">
             <ngu-tile *nguCarouselDef="let slide;">
               <a (click)="productDetails(slide['data']['id'])">
@@ -85,13 +82,11 @@
               <span class="sr-only">Next</span>
             </a>
           </ngu-carousel>
-
         </div>
       </nb-card-body>
       <nb-card-footer style="padding: 0.5rem">
         <nb-actions size="medium" fullWidth>
           <nb-action>
-
             <i style="font-size: 2rem" class="nb-grid-b-outline"></i>
             <a href="#/pages/productlist/Processor" routerLink="['../pages/productlist', 'Processor']"><span>View More</span>
             </a>
@@ -99,7 +94,6 @@
         </nb-actions>
       </nb-card-footer>
     </nb-card>
-
   </div>
 </div>
 
@@ -134,7 +128,6 @@
                   <span class="sr-only">Next</span>
                 </a>
               </ngu-carousel>
-         
         </div>
       </nb-card-body>
       <nb-card-footer style="padding: 0.5rem">
