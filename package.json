@@ -7,7 +7,7 @@
     "start": "node server.js",
     "start:hmr": "ng serve --hmr",
     "start:aot": "ng serve --aot",
-    "build": "ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimize",
+    "build": "ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path",
     "build:ci": "npm-run-all -p -r build:prod build:prod:aot",
     "test": "ng test -sr",
     "test:coverage": "rimraf coverage && npm run test -- -cc",
