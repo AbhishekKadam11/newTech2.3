@@ -1,13 +1,13 @@
 {
   "name": "newTech",
-  "version": "3.0.0",
+  "version": "2.3.0",
   "Author": "Abhishek.k",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
     "start:hmr": "ng serve --hmr",
     "start:aot": "ng serve --aot",
-    "build": "ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --build-optimizer",
+    "build": "ng build --prod --aot --build-optimizer --optimization",
     "build:ci": "npm-run-all -p -r build:prod build:prod:aot",
     "test": "ng test -sr",
     "test:coverage": "rimraf coverage && npm run test -- -cc",
@@ -56,6 +56,7 @@
     "chart.js": "2.7.1",
     "ckeditor": "4.7.3",
     "classlist.js": "1.1.20150312",
+    "compression": "^1.7.4",
     "core-js": "2.5.1",
     "echarts": "^4.0.2",
     "express": "^4.16.4",
