@@ -23,7 +23,7 @@ import { CartService } from './pages/cart/cart.service';
 
 import { GraphQLModule } from './apollo.config';
 
-import {SharedModule} from "./pages/shared/sharedmodule";
+// import {SharedModule} from "./pages/shared/sharedmodule";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
@@ -37,7 +37,6 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     HttpModule,
     GraphQLModule,
-
     BrowserAnimationsModule,
     // SharedModule,
     NgbModule.forRoot(),
