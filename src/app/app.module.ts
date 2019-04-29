@@ -24,6 +24,8 @@ import { CartService } from './pages/cart/cart.service';
 import { GraphQLModule } from './apollo.config';
 
 import {SharedModule} from "./pages/shared/sharedmodule";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import {SharedModule} from "./pages/shared/sharedmodule";
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
   ],
   bootstrap: [AppComponent],
