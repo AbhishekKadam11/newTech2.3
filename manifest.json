@@ -1,0 +1,36 @@
+{
+  "name": "newTech",
+  "short_name": "newTech",
+  "description": "An e-commerce application",
+  "icons": [
+    {
+      "src":"/assets/icons/favicon-14x14.png",
+      "sizes":"16x16",
+      "type":"image/png"
+    },
+    {
+      "src":"/assets/icons/favicon-32x32.png",
+      "sizes":"32x32",
+      "type":"image/png"
+    },
+    {
+      "src":"/assets/icons/android-icon-72x72.png",
+      "sizes":"72x72",
+      "type":"image/png"
+    },
+    {
+      "src":"/assets/icons/android-icon-144x144.png",
+      "sizes":"144x144",
+      "type":"image/png"
+    },
+    {
+      "src": "/assets/icons/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url":"/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#673ab7"
+}
