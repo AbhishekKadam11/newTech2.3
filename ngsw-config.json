@@ -10,6 +10,11 @@
           "/index.html",
           "/*.css",
           "/*.js"
+        ],
+        "versionedFiles": [
+          "/*.bundle.css",
+          "/*.bundle.js",
+          "/*.chunk.js"
         ]
       }
     }, {
@@ -22,5 +27,30 @@
         ]
       }
     }
-  ]
+  ],
+  "dataGroups": [{
+    "name": "api-freshness",
+    "urls": [
+      "/dashboardProductlist",
+      "/productDescriptionData",
+      "/productList"
+    ],
+    "cacheConfig": {
+      "maxSize": 100,
+      "maxAge": "1h",
+      "timeout": "10s",
+      "strategy": "freshness"
+    }
+  }, {
+    "name": "api-performance",
+    "urls": [
+      "/",
+      "/userBasicDetails"
+    ],
+    "cacheConfig": {
+      "maxSize": 100,
+      "maxAge": "1d",
+      "strategy": "performance"
+    }
+  }]
 }

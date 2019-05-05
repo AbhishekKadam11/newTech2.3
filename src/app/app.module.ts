@@ -50,7 +50,6 @@ import { environment } from '../environments/environment';
     { provide: APP_BASE_HREF, useValue: '/' },
     UserService,
     CartService,
- 
     GlobalShared,
   ],
 })
