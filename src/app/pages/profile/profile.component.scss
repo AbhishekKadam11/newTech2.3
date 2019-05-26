@@ -4,6 +4,7 @@
   height: 202px;
   position: relative;
   cursor: pointer;
+
   .picture-wrapper {
     width: 200px;
     height: 200px;
@@ -12,10 +13,12 @@
     justify-content: center;
     align-items: center;
   }
+
   img {
     max-width: 100%;
     max-height: 100%;
   }
+
   i {
     display: none;
     position: absolute;
@@ -27,13 +30,16 @@
     right: -11px;
     height: 26px;
     border-radius: 50%;
+
     &::before {
       line-height: 26px;
     }
+
     &:hover {
 
     }
   }
+
   a.change-picture {
     display: none;
     width: 202px;
@@ -47,10 +53,12 @@
     line-height: 32px;
     text-align: center;
   }
+
   &:hover {
     i {
       display: block;
     }
+
     .change-picture {
       display: block;
     }
@@ -65,6 +73,7 @@
     justify-content: center;
     align-items: center;
   }
+
   .spinner {
     width: 60px;
     height: 60px;
@@ -109,6 +118,7 @@
       -webkit-transform: scale(1);
     }
   }
+
   .ion-ios-close-outline::before {
     content: '\f405';
   }
@@ -265,8 +275,8 @@ img {
   position: relative;
   z-index: 1;
   width: 180px;
-  height:180px;
-  background-image:url(/assets/images/placeholder.jpg);
+  height: 180px;
+  background-image: url(/assets/images/placeholder.jpg);
   background-size: contain;
   border-radius: 1em;
 }
@@ -298,8 +308,8 @@ img {
   width: 170px;
   vertical-align: middle;
   text-align: center;
-  color: rgba(255,255,255,0.8);
-  border: dashed 3px rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
+  border: dashed 3px rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding-top: 110px;
   font-size: 150%;
@@ -307,6 +317,24 @@ img {
 
 .img-center {
   margin-left: auto;
-	margin-right: auto;
-	display: block;
+  margin-right: auto;
+  display: block;
 }
+
+.profile-background {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  height: auto;
+  background-image: url(/assets/images/profile-background1.jpg);
+  border-radius: 0.5em;
+}
+
+.user-picture {
+  position: relative;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 40px;
+}
+
+

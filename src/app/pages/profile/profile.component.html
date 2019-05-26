@@ -1,21 +1,20 @@
 
 <div class="row">
-  <div class="col-md-6">
-    <nb-card>
-      <nb-card-header>Profile Picture</nb-card-header>
-      <nb-card-body>
-        <div class="profile-picture img-center">
+  <div class="col-md-12">
+    <nb-card style="height: 300px">
+      <!--<nb-card-header>Profile Picture</nb-card-header>-->
+      <nb-card-body class="profile-background">
+        <div class="profile-picture user-picture">
           <img *ngIf="url" width=180 height=180 src="{{url}}" />
           <label *ngIf="editmode" for="uploader-input" ng2FileDrop [ngClass]="{'drag-over': hasDragOver}" (fileOver)="fileOver($event)" [uploader]="uploader">
-            <div class="infotext"><span *ngIf="!url" >Drop your picture<br>or click to upload</span></div>
+            <!--<div class="infotext"><span *ngIf="!url" >Drop your picture<br>or click to upload</span></div>-->
           </label>
           <input *ngIf="editmode" type="file" ng2FileSelect [uploader]="uploader" id="uploader-input" style="display:none" />
         </div>
-        <!--<fancy-image-uploader [options]="options" (onUpload)="onUpload($event)"></fancy-image-uploader>-->
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-12">
     <nb-card>
       <nb-card-header>Profile Details</nb-card-header>
       <nb-card-body>
