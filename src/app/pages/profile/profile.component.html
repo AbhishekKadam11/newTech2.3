@@ -1,116 +1,187 @@
-
 <div class="row">
   <div class="col-md-12">
-    <nb-card style="height: 300px">
+    <nb-card>
       <!--<nb-card-header>Profile Picture</nb-card-header>-->
       <nb-card-body class="profile-background">
-        <div class="profile-picture user-picture">
-          <img *ngIf="url" width=180 height=180 src="{{url}}" />
-          <label *ngIf="editmode" for="uploader-input" ng2FileDrop [ngClass]="{'drag-over': hasDragOver}" (fileOver)="fileOver($event)" [uploader]="uploader">
-            <!--<div class="infotext"><span *ngIf="!url" >Drop your picture<br>or click to upload</span></div>-->
-          </label>
-          <input *ngIf="editmode" type="file" ng2FileSelect [uploader]="uploader" id="uploader-input" style="display:none" />
+        <div class="row">
+          <div class="col-md-2 col-sm-12">
+            <div class="profile-picture user-picture">
+              <img *ngIf="url" width=180 height=180 src="{{url}}"/>
+              <label *ngIf="editmode" for="uploader-input" ng2FileDrop [ngClass]="{'drag-over': hasDragOver}"
+                     (fileOver)="fileOver($event)" [uploader]="uploader">
+                <!--<div class="infotext"><span *ngIf="!url" >Drop your picture<br>or click to upload</span></div>-->
+              </label>
+              <input *ngIf="editmode" type="file" ng2FileSelect [uploader]="uploader" id="uploader-input"
+                     style="display:none"/>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-12">
+            <p class="nameplate">
+              <span *ngIf="profile.firstName"> <i class="far fa-user mr10" ></i> {{profile.firstName}} {{profile.lastName}}<br> </span>
+              <span *ngIf="profile.mobileno"> <i class="fas fa-address-book mr10"></i> {{profile.mobileno}}<br> </span>
+              <span *ngIf="profile.address"> <i class="fas fa-map-marked-alt mr10"></i>{{profile.address}} <br> </span>
+            </p>
+          </div>
+          <div class="col-md-8">
+          </div>
         </div>
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-md-12">
-    <nb-card>
-      <nb-card-header>Profile Details</nb-card-header>
-      <nb-card-body>
-        <form>
-          <div class="form-group">
-            <label for="User Name">User Name</label>
-            <input type="text" [(ngModel)]="profile.email" [ngModelOptions]="{standalone: true}" class="form-control" id="User Name"
-              placeholder="User Name">
-          </div>
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label for="Password1">Password</label>
-              <input type="password" [(ngModel)]="profile.password" [ngModelOptions]="{standalone: true}" class="form-control" id="Password1"
-                placeholder="Password">
+  <div class="col-md-12 col-sm-12">
+    <div class="row">
+      <div class="col-md-4 col-sm-12">
+        <nb-card size="medium">
+          <nb-card-header>
+            <span>User Activity</span>
+            <div class="dropdown ghost-dropdown" ngbDropdown>
+              <button type="button" class="btn btn-sm" ngbDropdownToggle
+                      [ngClass]="{ 'btn-success': currentTheme == 'default', 'btn-primary': currentTheme != 'default'}">
+                {{ type }}
+              </button>
+              <ul ngbDropdownMenu class="dropdown-menu">
+                <li class="dropdown-item"
+                    *ngFor="let t of types"
+                    (click)="getUserActivity(t); type = t">
+                  {{ t }}
+                </li>
+              </ul>
             </div>
-            <div class="form-group col-md-6">
-              <label for="re-password">Re-Type Password</label>
-              <input type="password" [(ngModel)]="profile.repassword" [ngModelOptions]="{standalone: true}" class="form-control" id="re-password"
-                placeholder="Password">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-4">
-              <label for="FirstName">First Name </label>
-              <input type="text" [(ngModel)]="profile.firstName" [ngModelOptions]="{standalone: true}" class="form-control" id="FirstName"
-                placeholder="First Name">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="MiddleName">Middle Name </label>
-              <input type="text" [(ngModel)]="profile.middleName" [ngModelOptions]="{standalone: true}" class="form-control" id="MiddleName"
-                placeholder="Middle Name">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="LastName">Last Name</label>
-              <input type="text" [(ngModel)]="profile.lastName" [ngModelOptions]="{standalone: true}" class="form-control" id="LastName"
-                placeholder="Last Name">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-4">
-              <label>Gender </label>
-            </div>
-            <div class="form-group col-md-4">
-              <div class="form-check">
-                <label class="custom-control custom-radio">
-                  <input type="radio" [(ngModel)]="profile.gender" value="Male" class="custom-control-input" name="gridRadios" checked>
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">Male</span>
-                </label>
+          </nb-card-header>
+          <nb-card-body>
+            <ul class="user-activity-list">
+              <li *ngFor="let item of userActivity">
+                <div class="visited-date">
+                  {{ item.date }}
+                </div>
+                <div class="visited-pages-count">
+                  <div class="title">Pages Visit</div>
+                  <div class="value">{{ item.pagesVisitCount }}</div>
+                </div>
+                <div class="visited-percentages">
+                  <div class="title">New visits, %</div>
+                  <div class="delta value"
+                       [class.up]="item.deltaUp"
+                       [class.down]="!item.deltaUp">
+                    {{ item.newVisits }}%
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <div class="col-md-8 col-sm-12">
+        <nb-card>
+          <nb-card-header>Profile Details</nb-card-header>
+          <nb-card-body>
+            <form>
+              <div class="form-group">
+                <label for="User Name">User Name</label>
+                <input type="text" [(ngModel)]="profile.email" [ngModelOptions]="{standalone: true}" class="form-control"
+                       id="User Name"
+                       placeholder="User Name">
               </div>
-            </div>
-            <div class="form-group col-md-4">
-              <div class="form-check">
-                <label class="custom-control custom-radio">
-                  <input type="radio" [(ngModel)]="profile.gender" value="Female" class="custom-control-input" name="gridRadios">
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">Fe-male</span>
-                </label>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="Password1">Password</label>
+                  <input type="password" [(ngModel)]="profile.password" [ngModelOptions]="{standalone: true}"
+                         class="form-control" id="Password1"
+                         placeholder="Password">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="re-password">Re-Type Password</label>
+                  <input type="password" [(ngModel)]="profile.repassword" [ngModelOptions]="{standalone: true}"
+                         class="form-control" id="re-password"
+                         placeholder="Password">
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="MobileNo">Mobile No.</label>
-            <input type="number" [(ngModel)]="profile.mobileno" class="form-control" id="MobileNo" [ngModelOptions]="{standalone: true}"
-              placeholder="9999999999">
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="Address">Address</label>
-              <textarea rows="3" placeholder="Address" id="Address" [(ngModel)]="profile.address" [ngModelOptions]="{standalone: true}"
-                class="form-control"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-4">
-              <label>Notify me! </label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="demo-checkboxes col-sm-4">
-              <nb-checkbox [(ngModel)]="profile.extraaddon.upcomingsale" [ngModelOptions]="{standalone: true}">New Upcoming offers
-              </nb-checkbox>
-            </div>
-            <div class="demo-checkboxes col-sm-4">
-              <nb-checkbox [(ngModel)]="profile.extraaddon.newarrival" [ngModelOptions]="{standalone: true}">New Arrival
-              </nb-checkbox>
-            </div>
-          </div>
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="FirstName">First Name </label>
+                  <input type="text" [(ngModel)]="profile.firstName" [ngModelOptions]="{standalone: true}"
+                         class="form-control" id="FirstName"
+                         placeholder="First Name">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="MiddleName">Middle Name </label>
+                  <input type="text" [(ngModel)]="profile.middleName" [ngModelOptions]="{standalone: true}"
+                         class="form-control" id="MiddleName"
+                         placeholder="Middle Name">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="LastName">Last Name</label>
+                  <input type="text" [(ngModel)]="profile.lastName" [ngModelOptions]="{standalone: true}"
+                         class="form-control" id="LastName"
+                         placeholder="Last Name">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label>Gender </label>
+                </div>
+                <div class="form-group col-md-4">
+                  <div class="form-check">
+                    <label class="custom-control custom-radio">
+                      <input type="radio" [(ngModel)]="profile.gender" value="Male" class="custom-control-input"
+                             name="gridRadios" checked>
+                      <span class="custom-control-indicator"></span>
+                      <span class="custom-control-description">Male</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <div class="form-check">
+                    <label class="custom-control custom-radio">
+                      <input type="radio" [(ngModel)]="profile.gender" value="Female" class="custom-control-input"
+                             name="gridRadios">
+                      <span class="custom-control-indicator"></span>
+                      <span class="custom-control-description">Fe-male</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="MobileNo">Mobile No.</label>
+                <input type="number" [(ngModel)]="profile.mobileno" class="form-control" id="MobileNo"
+                       [ngModelOptions]="{standalone: true}"
+                       placeholder="9999999999">
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label for="Address">Address</label>
+                  <textarea rows="3" placeholder="Address" id="Address" [(ngModel)]="profile.address"
+                            [ngModelOptions]="{standalone: true}"
+                            class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label>Notify me! </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="demo-checkboxes col-sm-4">
+                  <nb-checkbox [(ngModel)]="profile.extraaddon.upcomingsale" [ngModelOptions]="{standalone: true}">New
+                    Upcoming offers
+                  </nb-checkbox>
+                </div>
+                <div class="demo-checkboxes col-sm-4">
+                  <nb-checkbox [(ngModel)]="profile.extraaddon.newarrival" [ngModelOptions]="{standalone: true}">New Arrival
+                  </nb-checkbox>
+                </div>
+              </div>
 
-          <button type="submit" (click)="setProfile(profile)" class="btn btn-hero-success">Submit</button>
-          <div class="row">
-            <div class="col-md-8" style="color: green" *ngIf="savedSuccess">Profile Data is Saved Successfully!!!</div>
-            <div class="col-md-8" style="color: red" *ngIf="saveUnsuccess">Unable to Save Profile Data!!!</div>
-          </div>
-        </form>
-      </nb-card-body>
-    </nb-card>
+              <button type="submit" (click)="setProfile(profile)" class="btn btn-hero-success">Submit</button>
+              <div class="row">
+                <div class="col-md-8" style="color: green" *ngIf="savedSuccess">Profile Data is Saved Successfully!!!</div>
+                <div class="col-md-8" style="color: red" *ngIf="saveUnsuccess">Unable to Save Profile Data!!!</div>
+              </div>
+            </form>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
   </div>
 </div>

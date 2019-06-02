@@ -58,6 +58,15 @@ export class ProfileComponent implements OnInit {
     this.hasDragOver = e;
   }
 
+  //last activity
+  private alive = true;
+
+  // userActivity: UserActive[] = [];
+  type = 'month';
+  types = ['week', 'month', 'year'];
+  currentTheme: string;
+
+
   setProfile(profile) {
 
     var input = {
