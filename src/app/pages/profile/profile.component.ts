@@ -3,6 +3,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { ProfileService } from './profile.service'
 import { GlobalShared } from '../../app.global';
 import { Apollo } from 'apollo-angular';
+import { Location } from './entity/Location';
 import { SET_USER_BASIC_DETAILS, CreateLinkMutationResponse, USER_BASIC_DETAILS } from '../../graphql';
 
 @Component({
@@ -21,6 +22,8 @@ export class ProfileComponent implements OnInit {
   savedSuccess: boolean = false;
   saveUnsuccess: boolean = false;
   formData: FormData;
+  searchedLocation: Location = new Location();
+
 
   constructor(private globalShared: GlobalShared,
               private apollo: Apollo) {
@@ -99,6 +102,10 @@ export class ProfileComponent implements OnInit {
       console.log(error);
     });
 
+  }
+
+  updateLocation(event: Location) {
+    this.searchedLocation = new Location(event.latitude, event.longitude);
   }
 
 }
