@@ -153,12 +153,11 @@
                     <div class="row">
                       <div class="form-group col-md-6">
                         <label for="Address">Address</label>
-                        <textarea rows="3" placeholder="Address" id="Address" [(ngModel)]="profile.address"
-                                  [ngModelOptions]="{standalone: true}"
-                                  class="form-control"></textarea>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <ngx-search (positionChanged)="updateLocation($event)"></ngx-search>
+                        <!--<textarea rows="3" placeholder="Address" id="Address" [(ngModel)]="profile.address"-->
+                                  <!--[ngModelOptions]="{standalone: true}"-->
+                                  <!--class="form-control"></textarea>-->
+
+                        <ngx-search [(ngModel)]="profile.address" (positionChanged)="updateLocation($event)"></ngx-search>
                         <ngx-map [searchedLocation]="searchedLocation"></ngx-map>
                       </div>
                     </div>
