@@ -1,7 +1,9 @@
+//<reference types="@types/googlemaps" />
 import { Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { Location } from '../entity/Location';
 
+declare var google: any;
 
 @Component({
   selector: 'ngx-search',
@@ -10,8 +12,6 @@ import { Location } from '../entity/Location';
 export class SearchComponent implements OnInit {
 
   @Output() positionChanged = new EventEmitter<Location>();
-  public google: any;
-
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
