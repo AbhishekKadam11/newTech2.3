@@ -50,6 +50,13 @@
           </nb-card-header>
           <nb-card-body>
             <ul class="user-activity-list">
+              <vertical-timeline-card
+                [dateValue]="myDate"
+                [timeString]="'15:18'"
+              >
+                <h1>Tomorrow</h1>
+              </vertical-timeline-card>
+
               <!--<li *ngFor="let item of userActivity">-->
                 <!--<div class="visited-date">-->
                   <!--{{ item.date }}-->

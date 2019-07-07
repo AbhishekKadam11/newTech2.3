@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
     }).valueChanges.subscribe((response) => {
       let data = response['data']['userBasicDetails'];
       this.profile = data;
+      console.log("pro" + data);
       this.profile['extraaddon'] =data['extraaddon'] ? JSON.parse(data['extraaddon']) : {};
     }, (error) => {
       console.log("profile api " + error); 

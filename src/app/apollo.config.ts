@@ -7,8 +7,8 @@ import {ApolloLink, concat} from 'apollo-link';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {setContext} from 'apollo-link-context';
 
-//const uri = 'http://localhost:8080/graphql/';
-const uri = 'https://newtechserver2.herokuapp.com/graphql/';
+const uri = 'http://localhost:8080/graphql/';
+//const uri = 'https://newtechserver2.herokuapp.com/graphql/';
 // const http = httpLink.create({uri});
 export function provideApollo(httpLink: HttpLink) {
   const basic = setContext((op, ctx) => ({
