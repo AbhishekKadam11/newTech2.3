@@ -49,12 +49,13 @@
             </div>
           </nb-card-header>
           <nb-card-body>
-            <ul class="user-activity-list">
+            <ul class="user-activity-list" *ngFor="let item of lastOrderList">
+
               <vertical-timeline-card
-                [dateValue]="myDate"
-                [timeString]="'15:18'"
+                [dateValue]="item.requestdate | date:'dd-MM-yyyy'"
+                [timeString]="item.requestdate | date:'hh:mm'"
               >
-                <h1>Tomorrow</h1>
+                <span>{{item.productDescription['data']['title']}}</span>
               </vertical-timeline-card>
 
               <!--<li *ngFor="let item of userActivity">-->
@@ -90,6 +91,7 @@
                       <input type="text" [(ngModel)]="profile.email" [ngModelOptions]="{standalone: true}"
                              class="form-control"
                              id="User Name"
+                             name="User name"
                              placeholder="User Name">
                     </div>
                     <div class="row">
@@ -97,12 +99,14 @@
                         <label for="Password1">Password</label>
                         <input type="password" [(ngModel)]="profile.password" [ngModelOptions]="{standalone: true}"
                                class="form-control" id="Password1"
+                               name="Password"
                                placeholder="Password">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="re-password">Re-Type Password</label>
                         <input type="password" [(ngModel)]="profile.repassword" [ngModelOptions]="{standalone: true}"
                                class="form-control" id="re-password"
+                               name="Repassword"
                                placeholder="Password">
                       </div>
                     </div>
@@ -111,18 +115,21 @@
                         <label for="FirstName">First Name </label>
                         <input type="text" [(ngModel)]="profile.firstName" [ngModelOptions]="{standalone: true}"
                                class="form-control" id="FirstName"
+                               name="FirstName"
                                placeholder="First Name">
                       </div>
                       <div class="form-group col-md-4">
                         <label for="MiddleName">Middle Name </label>
                         <input type="text" [(ngModel)]="profile.middleName" [ngModelOptions]="{standalone: true}"
                                class="form-control" id="MiddleName"
+                               name="MiddleName"
                                placeholder="Middle Name">
                       </div>
                       <div class="form-group col-md-4">
                         <label for="LastName">Last Name</label>
                         <input type="text" [(ngModel)]="profile.lastName" [ngModelOptions]="{standalone: true}"
                                class="form-control" id="LastName"
+                               name="LastName"
                                placeholder="Last Name">
                       </div>
                     </div>
@@ -154,6 +161,7 @@
                     <div class="form-group">
                       <label for="MobileNo">Mobile No.</label>
                       <input type="number" [(ngModel)]="profile.mobileno" class="form-control" id="MobileNo"
+                             name="MobileNo"
                              [ngModelOptions]="{standalone: true}"
                              placeholder="9999999999">
                     </div>
@@ -173,19 +181,19 @@
                         <label>Notify me! </label>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="demo-checkboxes col-sm-4">
-                        <nb-checkbox [(ngModel)]="profile.extraaddon.upcomingsale"
-                                     [ngModelOptions]="{standalone: true}">New
-                          Upcoming offers
-                        </nb-checkbox>
-                      </div>
-                      <div class="demo-checkboxes col-sm-4">
-                        <nb-checkbox [(ngModel)]="profile.extraaddon.newarrival" [ngModelOptions]="{standalone: true}">
-                          New Arrival
-                        </nb-checkbox>
-                      </div>
-                    </div>
+                    <!--<div class="row">-->
+                      <!--<div class="demo-checkboxes col-sm-4">-->
+                        <!--<nb-checkbox [(ngModel)]="profile.extraaddon.upcomingsale"-->
+                                     <!--[ngModelOptions]="{standalone: true}">New-->
+                          <!--Upcoming offers-->
+                        <!--</nb-checkbox>-->
+                      <!--</div>-->
+                      <!--<div class="demo-checkboxes col-sm-4">-->
+                        <!--<nb-checkbox [(ngModel)]="profile.extraaddon.newarrival" [ngModelOptions]="{standalone: true}">-->
+                          <!--New Arrival-->
+                        <!--</nb-checkbox>-->
+                      <!--</div>-->
+                    <!--</div>-->
 
                     <button type="submit" (click)="setProfile(profile)" class="btn btn-hero-success">Submit</button>
                     <div class="row">

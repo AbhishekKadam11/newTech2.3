@@ -4,7 +4,12 @@ import { ProfileService } from './profile.service'
 import { GlobalShared } from '../../app.global';
 import { Apollo } from 'apollo-angular';
 import { Location } from './entity/Location';
-import { SET_USER_BASIC_DETAILS, CreateLinkMutationResponse, USER_BASIC_DETAILS } from '../../graphql';
+import {
+  SET_USER_BASIC_DETAILS,
+  CreateLinkMutationResponse,
+  USER_BASIC_DETAILS,
+  CUSTOMER_ORDER_DETAILS
+} from '../../graphql';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -19,6 +24,7 @@ export class ProfileComponent implements OnInit {
   public editmode = true;
   public url = '';
   public profile:any = {};  // model
+  public lastOrderList:any = {};  // model
   savedSuccess: boolean = false;
   saveUnsuccess: boolean = false;
   formData: FormData;
@@ -35,9 +41,21 @@ export class ProfileComponent implements OnInit {
       let data = response['data']['userBasicDetails'];
       this.profile = data;
       console.log("pro" + data);
-      this.profile['extraaddon'] =data['extraaddon'] ? JSON.parse(data['extraaddon']) : {};
+    //  this.profile['extraaddon'] =data['extraaddon'] ? JSON.parse(data['extraaddon']) : {};
     }, (error) => {
       console.log("profile api " + error); 
+    });
+
+    this.apollo.watchQuery({
+      query: CUSTOMER_ORDER_DETAILS
+
+    }).valueChanges.subscribe((response) => {
+      let data = response['data']['customerOrderDetails'];
+      this.lastOrderList = data;
+      console.log("OrderDetails" + JSON.stringify(data));
+      //  this.profile['extraaddon'] =data['extraaddon'] ? JSON.parse(data['extraaddon']) : {};
+    }, (error) => {
+      console.log("profile api " + error);
     });
 
     this.uploader = new FileUploader({

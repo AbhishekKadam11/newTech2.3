@@ -136,3 +136,19 @@ export const SEARCH_ITEM = gql`
     }
   }
 `;
+
+export const CUSTOMER_ORDER_DETAILS = gql`
+query {
+  customerOrderDetails {
+   orderId
+    requestdate
+ 		productDescription{
+      data {
+        id
+        title
+        image
+      }
+    }
+  }
+}
+`;
