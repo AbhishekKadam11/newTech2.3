@@ -6,7 +6,6 @@ import { ProfileService } from './profile.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import {AgmCoreModule} from "@agm/core";
 //import { FancyImageUploaderModule } from 'ng2-fancy-image-uploader';
-import { VerticalTimelineModule } from 'angular-vertical-timeline';
 
 @NgModule({
   imports: [
@@ -17,7 +16,6 @@ import { VerticalTimelineModule } from 'angular-vertical-timeline';
       apiKey: 'AIzaSyCuRfFUi2K3aCdRDFG4ZDA_aGFwwDnhhaM',
       libraries: ['places'],
     }),
-    VerticalTimelineModule,
    // FancyImageUploaderModule,
   ],
   declarations: [
