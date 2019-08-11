@@ -50,7 +50,7 @@
           </nb-card-header>
           <nb-card-body>
 
-            <mgl-timeline [side]="left">
+            <mgl-timeline [side]="side">
               <mgl-timeline-entry *ngFor="let item of lastOrderList; let i = index;">
                 <mgl-timeline-entry-header>{{item.requestdate | date:'dd-MM-yyyy'}}</mgl-timeline-entry-header>
                 <mgl-timeline-entry-content>
