@@ -49,7 +49,7 @@
             </div>
           </nb-card-header>
           <nb-card-body>
-            <ul class="user-activity-list" *ngFor="let item of lastOrderList">
+            <!--<ul class="user-activity-list" *ngFor="let item of lastOrderList">-->
 
               <!--<vertical-timeline-card-->
                 <!--[dateValue]="item.requestdate | date:'dd-MM-yyyy'"-->
@@ -75,7 +75,14 @@
                   <!--</div>-->
                 <!--</div>-->
               <!--</li>-->
-            </ul>
+            <!--</ul>-->
+            <mgl-timeline [side]="side">
+              <mgl-timeline-entry *ngFor="let item of lastOrderList; let i = index;">
+                <mgl-timeline-entry-header>{{item.requestdate | date:'dd-MM-yyyy'}}</mgl-timeline-entry-header>
+                <mgl-timeline-entry-content>Content</mgl-timeline-entry-content>
+              </mgl-timeline-entry>
+            </mgl-timeline>
+
           </nb-card-body>
         </nb-card>
       </div>

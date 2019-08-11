@@ -18,6 +18,7 @@ import { CartService } from './pages/cart/cart.service';
 import { GraphQLModule } from './apollo.config';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {MglTimelineModule} from "angular-mgl-timeline";
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { environment } from '../environments/environment';
     HttpModule,
     GraphQLModule,
     BrowserAnimationsModule,
+
     // SharedModule,
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
