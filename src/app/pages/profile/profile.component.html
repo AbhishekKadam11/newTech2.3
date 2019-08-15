@@ -50,13 +50,19 @@
           </nb-card-header>
           <nb-card-body>
 
-            <mgl-timeline [side]="side">
+            <mgl-timeline >
               <mgl-timeline-entry *ngFor="let item of lastOrderList; let i = index;">
                 <mgl-timeline-entry-header>{{item.requestdate | date:'dd-MM-yyyy'}}</mgl-timeline-entry-header>
                 <mgl-timeline-entry-content>
-                  <div class="col-md-4 col-sm-6">
+                  <!--<div class="col-md-6 col-sm-6">-->
                     <img [src]="globalShared['urlpath']+item['productDescription']['data']['image']"   class="thumbnail mx-auto d-block">
-                  </div>
+                  <!--</div>-->
+                  <!--<div class="col-md-6 col-sm-6 pull-right">-->
+                    <blockquote class="blockquote">
+                      <p class="mb-0">{{item['productDescription']['data']['title']}} </p> <br>
+                      <p class="mb-0">Total Amount: {{item.totalamount}} </p> <br>
+                    </blockquote>
+                  <!--</div>-->
                 </mgl-timeline-entry-content>
                 <mgl-timeline-entry-dot></mgl-timeline-entry-dot>
               </mgl-timeline-entry>

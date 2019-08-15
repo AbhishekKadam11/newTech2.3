@@ -142,6 +142,7 @@ query {
   customerOrderDetails {
    orderId
     requestdate
+    totalamount
  		productDescription{
       data {
         id
