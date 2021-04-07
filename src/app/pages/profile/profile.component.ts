@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   public editmode = true;
   public url = '';
   public profile:any = {};  // model
-  public lastOrderList:any = {};  // model
+  public lastOrderList:any = [];  // model
   savedSuccess: boolean = false;
   saveUnsuccess: boolean = false;
   formData: FormData;

@@ -49,8 +49,7 @@
             </div>
           </nb-card-header>
           <nb-card-body>
-
-            <mgl-timeline >
+            <mgl-timeline *ngIf="lastOrderList.length !==0">
               <mgl-timeline-entry *ngFor="let item of lastOrderList; let i = index;">
                 <mgl-timeline-entry-header>{{item.requestdate | date:'dd-MM-yyyy'}}</mgl-timeline-entry-header>
                 <mgl-timeline-entry-content>
@@ -67,6 +66,9 @@
                 <mgl-timeline-entry-dot></mgl-timeline-entry-dot>
               </mgl-timeline-entry>
             </mgl-timeline>
+            <div *ngIf="lastOrderList.length ===0">
+              No data found
+            </div>
 
           </nb-card-body>
         </nb-card>
@@ -78,15 +80,18 @@
               <nb-card>
                 <nb-card-body>
                   <form>
-                    <div class="form-group">
+                    <div class="row">
+                    <div class="form-group col-md-4">
                       <label for="User Name">User Name</label>
                       <input type="text" [(ngModel)]="profile.email" [ngModelOptions]="{standalone: true}"
                              class="form-control"
                              id="User Name"
+                             readonly
                              name="User name"
                              placeholder="User Name">
                     </div>
-                    <div class="row">
+                    </div>
+                    <!-- <div class="row">
                       <div class="form-group col-md-6">
                         <label for="Password1">Password</label>
                         <input type="password" [(ngModel)]="profile.password" [ngModelOptions]="{standalone: true}"
@@ -101,16 +106,16 @@
                                name="Repassword"
                                placeholder="Password">
                       </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                       <div class="form-group col-md-4">
-                        <label for="FirstName">First Name </label>
-                        <input type="text" [(ngModel)]="profile.firstName" [ngModelOptions]="{standalone: true}"
+                        <label for="FirstName">Profile Name </label>
+                        <input type="text" [(ngModel)]="profile.profileName" [ngModelOptions]="{standalone: true}"
                                class="form-control" id="FirstName"
                                name="FirstName"
-                               placeholder="First Name">
+                               placeholder="Profile Name">
                       </div>
-                      <div class="form-group col-md-4">
+                      <!-- <div class="form-group col-md-4">
                         <label for="MiddleName">Middle Name </label>
                         <input type="text" [(ngModel)]="profile.middleName" [ngModelOptions]="{standalone: true}"
                                class="form-control" id="MiddleName"
@@ -123,13 +128,13 @@
                                class="form-control" id="LastName"
                                name="LastName"
                                placeholder="Last Name">
-                      </div>
+                      </div> -->
                     </div>
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label>Gender </label>
-                      </div>
-                      <div class="form-group col-md-4">
+                      <!-- </div>
+                      <div class="form-group col-md-4"> -->
                         <div class="form-check">
                           <label class="custom-control custom-radio">
                             <input type="radio" [(ngModel)]="profile.gender" value="Male" class="custom-control-input"
@@ -138,8 +143,8 @@
                             <span class="custom-control-description">Male</span>
                           </label>
                         </div>
-                      </div>
-                      <div class="form-group col-md-4">
+                      <!-- </div>
+                      <div class="form-group col-md-4"> -->
                         <div class="form-check">
                           <label class="custom-control custom-radio">
                             <input type="radio" [(ngModel)]="profile.gender" value="Female" class="custom-control-input"
@@ -150,15 +155,17 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group">
+                    <div class="row">
+                      <div class="form-group col-md-4">
                       <label for="MobileNo">Mobile No.</label>
                       <input type="number" [(ngModel)]="profile.mobileno" class="form-control" id="MobileNo"
                              name="MobileNo"
                              [ngModelOptions]="{standalone: true}"
                              placeholder="9999999999">
                     </div>
+                    </div>
                     <div class="row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="Address">Address</label>
                         <!--<textarea rows="3" placeholder="Address" id="Address" [(ngModel)]="profile.address"-->
                                   <!--[ngModelOptions]="{standalone: true}"-->
@@ -168,11 +175,11 @@
                         <ngx-map [searchedLocation]="searchedLocation"></ngx-map>
                       </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="form-group col-md-4">
                         <label>Notify me! </label>
                       </div>
-                    </div>
+                    </div> -->
                     <!--<div class="row">-->
                       <!--<div class="demo-checkboxes col-sm-4">-->
                         <!--<nb-checkbox [(ngModel)]="profile.extraaddon.upcomingsale"-->
