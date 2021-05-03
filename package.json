@@ -90,7 +90,7 @@
     "rxjs": "6.3.0",
     "rxjs-compat": "^6.3.3",
     "socicon": "3.0.5",
-    "tinymce": "^4.9.4",
+    "tinymce": "^5.6.0",
     "typeface-exo": "0.0.22",
     "web-animations-js": "2.2.5",
     "zone.js": "^0.8.26",
