@@ -5,6 +5,7 @@ import { LayoutService } from '../../../@core/data/layout.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../../pages/login/user.service';
 import { GlobalShared } from '../../../app.global';
+import { filter } from 'rxjs/internal/operators/filter';
 
 @Component({
   selector: 'ngx-header',
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
               private menuService: NbMenuService,
               private analyticsService: AnalyticsService,
               private router: Router,
+              private nbMenuService: NbMenuService,
               public globalShared: GlobalShared,
               private userService: UserService,
               private searchService: NbSearchService) {
@@ -50,6 +52,20 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/pages/searchresult', result.term]);
     //  console.log(result.term);
     })
+
+    this.nbMenuService.onItemClick()
+    .pipe(
+      filter(({ tag }) => tag === 'userActionMenu'),
+    )
+    .subscribe(data => {
+      if (data['item']['title'] === 'Profile') {
+        this.router.navigate(['/pages/profile']);
+      }
+      if (data['item']['title'] === 'Log out') {
+        this.router.navigate(['/pages/dashboard']);
+        this.hidebttn = false;
+      }
+    });
   }
 
   onMenuClick(path) {

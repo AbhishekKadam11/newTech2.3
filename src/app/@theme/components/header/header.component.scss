@@ -52,21 +52,21 @@
     }
   }
 
-  @include media-breakpoint-down(sm) {
-    .control-item {
-      display: none;
-    }
-    .user-action {
-      border: none;
-      padding: 0;
-    }
-  }
+  // @include media-breakpoint-down(sm) {
+  //   .control-item {
+  //     display: none;
+  //   }
+  //   .user-action {
+  //     border: none;
+  //     padding: 0;
+  //   }
+  // }
 
-  @include media-breakpoint-down(is) {
-    nb-select {
-      display: none;
-    }
-  }
+  // @include media-breakpoint-down(is) {
+  //   nb-select {
+  //     display: none;
+  //   }
+  // }
 }
 
 .dropdown-toggle::after {

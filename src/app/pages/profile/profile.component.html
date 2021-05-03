@@ -5,7 +5,7 @@
       <nb-card-body class="profile-background">
         <div class="row">
           <div class="col-md-2 col-sm-12">
-            <div class="profile-picture user-picture">
+            <div class="profile-picture user-profilepicture">
               <img *ngIf="url" width=180 height=180 src="{{url}}"/>
               <label *ngIf="editmode" for="uploader-input" ng2FileDrop [ngClass]="{'drag-over': hasDragOver}"
                      (fileOver)="fileOver($event)" [uploader]="uploader">

@@ -342,13 +342,21 @@ img {
   margin-right: 10px;
 }
 
-//.nameplate {
-//  position: relative;
-//  font-size: medium;
-//  color: floralwhite;
-//  margin-top: 80px;
-//  margin-left: -80px;
-//}
+// .nameplate {
+//     position: relative;
+//     font-size: medium;
+//     color: floralwhite;
+//     margin-top: 80px;
+//     margin-left: -80px;
+// }
+//   .user-profilepicture {
+//     position: relative;
+//     border-radius: 50%;
+//     flex-shrink: 0;
+//     margin-top: 40px;
+//     margin-left: 20px;
+//     margin-bottom: 40px;
+//   }
 
 @media only screen and (max-width: 2565px) and (min-width: 770px) {
   .nameplate {
@@ -358,17 +366,17 @@ img {
     margin-top: 80px;
     margin-left: -80px;
   }
-  .user-picture {
+  .user-profilepicture {
     position: relative;
     border-radius: 50%;
     flex-shrink: 0;
-    margin-top: 40px;
-    margin-left: 20px;
-    margin-bottom: 40px;
+    // margin-top: 40px;
+    // margin-left: 20px;
+    // margin-bottom: 40px;
   }
 }
 
-//user activity
+// //user activity
 
 nb-card-header {
   display: flex;
@@ -499,7 +507,7 @@ nb-card-body {
     margin-right: auto;
     height: auto;
   }
-  .user-picture {
+  .user-profilepicture {
     position: relative;
     border-radius: 50%;
     flex-shrink: 0;

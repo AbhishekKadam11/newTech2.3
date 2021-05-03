@@ -34,13 +34,18 @@
     </nb-action>
     <nb-action class="control-item">
       <div [hidden]="!hidebttn">
-        <div class="dropdown ghost-dropdown" ngbDropdown>
+        <!-- <div class="dropdown ghost-dropdown" ngbDropdown>
           <nb-user class="dropdown-toggle" ngbDropdownToggle [name]="profileName" 
             [picture]="profilePic ? globalShared['urlpath']+profilePic : false"></nb-user>
           <ul class="dropdown-menu" ngbDropdownMenu >
             <li class="dropdown-item" *ngFor="let menu of userMenu" (click)="onMenuClick(menu.path)"> {{menu.title}} </li>
           </ul>
-        </div>
+        </div> -->
+        <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
+        <nb-user [nbContextMenu]="userMenu" nbContextMenuTag="userActionMenu" [onlyPicture]="false"
+          [name]="profileName" [picture]="profilePic ? globalShared['urlpath']+profilePic : false">
+        </nb-user>
+        </nb-action>
       </div>
       <div [hidden]="hidebttn">
         <a routerLink="../auth/login" href="#/auth/login"><strong>Sign-In</strong> </a>
