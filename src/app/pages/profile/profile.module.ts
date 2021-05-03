@@ -8,6 +8,7 @@ import {AgmCoreModule} from "@agm/core";
 import {MglTimelineModule} from "angular-mgl-timeline";
 //import { FancyImageUploaderModule } from 'ng2-fancy-image-uploader';
 import { NgSelectModule } from "@ng-select/ng-select";
+import { NbCardModule } from '@nebular/theme';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
     ProfileRoutingModule,
     FileUploadModule,
     NgSelectModule,
+    // NbCardModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCuRfFUi2K3aCdRDFG4ZDA_aGFwwDnhhaM',
       libraries: ['places'],

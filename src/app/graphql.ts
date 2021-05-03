@@ -60,6 +60,8 @@ query {
   mobileno
   profilePic
   gender
+  state
+  city
   }
 }
 `;

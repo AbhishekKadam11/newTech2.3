@@ -7,159 +7,70 @@
   justify-content: space-between;
   width: 100%;
 
-  .left {
-    display: flex;
-    width: 100%;
-    order: 0;
-    flex-direction: row;
-  }
-  .right {
-    order: 1;
-    flex-direction: row-reverse;
-  }
-  .cart {
-    order: 1;
-    flex-direction: row-reverse;
-  }
-
-  .logo-containter {
+  .logo-container {
     display: flex;
     align-items: center;
+    width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
   }
 
-  .control-item {
-    display: block;
+  nb-action {
+    height: auto;
+    display: flex;
+    align-content: center;
+  }
+
+  nb-user {
+    cursor: pointer;
+  }
+
+  ::ng-deep nb-search button {
+    padding: 0!important;
   }
 
   .header-container {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: auto;
 
-    .navigation {
-      padding-right: nb-theme(padding);
-      font-size: 2.5rem;
+    .sidebar-toggle {
+      @include nb-ltr(padding-right, 1.25rem);
+      @include nb-rtl(padding-left, 1.25rem);
       text-decoration: none;
-
-      i {
-        display: block;
+      color: nb-theme(text-hint-color);
+      nb-icon {
+        font-size: 1.75rem;
       }
-
     }
 
     .logo {
-      padding: 0 nb-theme(padding);
+      padding: 0 1.25rem;
       font-size: 1.75rem;
-      font-weight: nb-theme(font-weight-bolder);
-      border-left: 1px solid nb-theme(separator);
+      @include nb-ltr(border-left, 1px solid nb-theme(divider-color));
+      @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
       white-space: nowrap;
-
-      span {
-        font-weight: nb-theme(font-weight-normal);
-      }
-    }
-  }
-
-  .toggle-layout /deep/ a {
-    display: block;
-    text-decoration: none;
-    line-height: 1;
-
-    i {
-      color: nb-theme(color-fg-highlight);
-      font-size: 2.25rem;
-    }
-  }
-
-  @include media-breakpoint-down(md) {
-
-    nb-action:not(.toggle-layout) {
-      border: none;
-    }
-
-    .control-item {
-      // display: none;
-    }
-
-    .toggle-layout {
-      padding: 0;
+      text-decoration: none;
     }
   }
 
   @include media-breakpoint-down(sm) {
-
-    nb-user /deep/ .user-name {
-      // display: none;
-    }
-  }
-
-  // @media only screen and (max-width: 400px) and (min-width: 350px) {
-
-  //   .header-container {
-  //     // .logo {
-  //     //   font-size: 1.25rem;
-  //     // }
-  //     font-size: 0.75rem !important;
-  //     .navigation {
-  //       padding-left: nb-theme(padding);
-  //       // font-size: 1.25rem !important;
-  //       // text-decoration: none;
-  
-  //       i {
-  //         display: block;
-  //       }
-  //     }
-  //   }
-
-  //   .toggle-layout {
-  //     display: none;
-  //   }
-
-  //   nb-action:not(.toggle-layout) {
-  //     padding: 0;
-  //   }
-  // }
-
-  @include media-breakpoint-down(is) {
-
-    .header-container {
-      .logo {
-        font-size: 1.25rem;
-      }
-      .navigation {
-        padding-left: nb-theme(padding);
-        font-size: 1.25rem !important;
-        text-decoration: none;
-  
-        i {
-          display: block;
-        }
-      }
-    }
-
-    .toggle-layout {
+    .control-item {
       display: none;
     }
-
-    nb-action:not(.toggle-layout) {
+    .user-action {
+      border: none;
       padding: 0;
     }
   }
 
-  @include media-breakpoint-down(xs) {
-    .right /deep/ {
-      font-size: 0.9rem !important;
-      // display: none;
-    }
-  }
-  @media only screen and (max-width: 360px) and (min-width: 300px) {
-    .right /deep/ {
-      font-size: 0.75rem !important;
-      // display: none;
+  @include media-breakpoint-down(is) {
+    nb-select {
+      display: none;
     }
   }
 }
+
 .dropdown-toggle::after {
   display:none;
+  left: 30px !important; top: 0px;
 }
 
