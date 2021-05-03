@@ -8,7 +8,9 @@ import {
   SET_USER_BASIC_DETAILS,
   CreateLinkMutationResponse,
   USER_BASIC_DETAILS,
-  CUSTOMER_ORDER_DETAILS
+  CUSTOMER_ORDER_DETAILS,
+  STATE_LIST,
+  CITY_LIST
 } from '../../graphql';
 
 @Component({
@@ -30,6 +32,8 @@ export class ProfileComponent implements OnInit {
   formData: FormData;
   searchedLocation: Location = new Location();
   side = 'right';
+  stateList: any;
+  cityList:any;
 
   constructor(private globalShared: GlobalShared,
               private apollo: Apollo) {
@@ -40,7 +44,7 @@ export class ProfileComponent implements OnInit {
     }).valueChanges.subscribe((response) => {
       let data = response['data']['userBasicDetails'];
       this.profile = data;
-      console.log("pro" + data);
+      // console.log("pro" + data);
     //  this.profile['extraaddon'] =data['extraaddon'] ? JSON.parse(data['extraaddon']) : {};
     }, (error) => {
       console.log("profile api " + error); 
@@ -52,10 +56,21 @@ export class ProfileComponent implements OnInit {
     }).valueChanges.subscribe((response) => {
       let data = response['data']['customerOrderDetails'];
       this.lastOrderList = data;
-      console.log("OrderDetails" + JSON.stringify(data));
+      // console.log("OrderDetails" + JSON.stringify(data));
       //  this.profile['extraaddon'] =data['extraaddon'] ? JSON.parse(data['extraaddon']) : {};
     }, (error) => {
       console.log("profile api " + error);
+    });
+
+    this.apollo.watchQuery({
+      query: STATE_LIST
+
+    }).valueChanges.subscribe((response) => {
+      this.stateList = response['data']['stateList'];
+      // this.profile = data;
+      // console.log("state" +  this.stateList);
+    }, (error) => {
+      console.log("profile api " + error); 
     });
 
     this.uploader = new FileUploader({
@@ -80,6 +95,20 @@ export class ProfileComponent implements OnInit {
     this.hasDragOver = e;
   }
 
+  getCityList(state) {
+    //for city list
+    this.apollo.watchQuery({
+      query: CITY_LIST,
+      variables: {"state": state}
+    }).valueChanges.subscribe((response) => {
+      this.cityList = response['data']['cityList'];
+      // this.profile = data;
+      // console.log("cityList" + this.cityList);
+    }, (error) => {
+      console.log("profile api " + error);
+    });
+  }
+
   //last activity
   private alive = true;
 
@@ -101,9 +130,11 @@ export class ProfileComponent implements OnInit {
       address: profile['address'],
       mobileno: profile['mobileno'],
       profilePic: profile['profilePic'],
+      state: profile['state'],
+      city: profile['city'],
       profilename: this.profile.profilename
     };
-    console.log(input);
+    // console.log(input);
     this.apollo.mutate({
       mutation: SET_USER_BASIC_DETAILS,
       variables: {input}

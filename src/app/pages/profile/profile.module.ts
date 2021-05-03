@@ -7,12 +7,14 @@ import { FileUploadModule } from 'ng2-file-upload';
 import {AgmCoreModule} from "@agm/core";
 import {MglTimelineModule} from "angular-mgl-timeline";
 //import { FancyImageUploaderModule } from 'ng2-fancy-image-uploader';
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
   imports: [
     ThemeModule,
     ProfileRoutingModule,
     FileUploadModule,
+    NgSelectModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCuRfFUi2K3aCdRDFG4ZDA_aGFwwDnhhaM',
       libraries: ['places'],

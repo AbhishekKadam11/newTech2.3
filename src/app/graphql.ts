@@ -153,3 +153,19 @@ query {
   }
 }
 `;
+
+export const STATE_LIST = gql`
+query {
+  stateList {  
+    state
+  }
+  }
+`;
+
+export const CITY_LIST = gql`
+  query cityList($state: String!) {
+    cityList(state: $state) {
+      name
+    }
+  }
+`;

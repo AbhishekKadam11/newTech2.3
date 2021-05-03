@@ -157,22 +157,37 @@
                     </div>
                     <div class="row">
                       <div class="form-group col-md-4">
-                      <label for="MobileNo">Mobile No.</label>
-                      <input type="number" [(ngModel)]="profile.mobileno" class="form-control" id="MobileNo"
-                             name="MobileNo"
-                             [ngModelOptions]="{standalone: true}"
-                             placeholder="9999999999">
+                        <label for="MobileNo">Mobile No.</label>
+                        <input type="number" [(ngModel)]="profile.mobileno" class="form-control" id="MobileNo" name="MobileNo"
+                          [ngModelOptions]="{standalone: true}" placeholder="9999999999">
+                      </div>
                     </div>
+                    <div class="row">
+                      <div class="form-group col-md-4">
+                        <label for="State">State</label> 
+                        <ng-select [(ngModel)]="profile.state" [items]="stateList" [ngModelOptions]="{standalone: true}" bindLabel="state"
+                          bindValue="state" (change)="getCityList(profile.state)">
+                        </ng-select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-md-4">
+                        <label for="City">City</label>
+                        <ng-select [(ngModel)]="profile.city" [ngModelOptions]="{standalone: true}">
+                          <ng-option *ngFor="let c of cityList" bindValue="c.name" [value]="c.name">{{c.name}}
+                          </ng-option>
+                        </ng-select>
+                      </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-md-4">
                         <label for="Address">Address</label>
-                        <!--<textarea rows="3" placeholder="Address" id="Address" [(ngModel)]="profile.address"-->
-                                  <!--[ngModelOptions]="{standalone: true}"-->
-                                  <!--class="form-control"></textarea>-->
+                        <textarea rows="3" placeholder="Address" id="Address" [(ngModel)]="profile.address"
+                                  [ngModelOptions]="{standalone: true}"
+                                  class="form-control"></textarea>
 
-                        <ngx-search [(ngModel)]="profile.address" (positionChanged)="updateLocation($event)"></ngx-search>
-                        <ngx-map [searchedLocation]="searchedLocation"></ngx-map>
+                        <!-- <ngx-search [(ngModel)]="profile.address" (positionChanged)="updateLocation($event)"></ngx-search>
+                        <ngx-map [searchedLocation]="searchedLocation"></ngx-map> -->
                       </div>
                     </div>
                     <!-- <div class="row">
@@ -207,12 +222,12 @@
               </nb-card>
 
             </nb-tab>
-            <nb-tab tabTitle="Simple Tab #2">
+            <!-- <nb-tab tabTitle="Simple Tab #2">
               <span>Content #2</span>
             </nb-tab>
             <nb-tab tabTitle="Simple Tab #3">
               <span>Content #3</span>
-            </nb-tab>
+            </nb-tab> -->
           </nb-tabset>
         </nb-card>
 
