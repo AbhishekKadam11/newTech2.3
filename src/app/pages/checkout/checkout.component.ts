@@ -17,7 +17,7 @@ import {
 export class CheckoutComponent implements OnInit {
 
   public cartData: any = {};
-  public total: number;
+  public total: number=0;
   public orderData: any = {};
   private isloggedIn: any;
   isEmpty: boolean = true;
@@ -66,7 +66,7 @@ export class CheckoutComponent implements OnInit {
     let total: number = 0;
     if (this.cartData) {
       this.cartData.forEach(function (value)  {
-        total += value['price'];
+        total += parseInt(value['price']);
       });
     }
 
@@ -92,7 +92,7 @@ export class CheckoutComponent implements OnInit {
       orderData['productId'] = item['id'];
       orderData['quantity'] = item['quantity'];
       orderData['price'] = item['price'];
-      totalamount += item['price'];
+      totalamount += parseInt(item['price']);
       checkoutData.push(orderData);
     });
     if (checkoutData.length !== 0) {
