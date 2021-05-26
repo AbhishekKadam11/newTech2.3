@@ -1,6 +1,7 @@
 .thumbnail {
   width: 130px;
   height: 160px;
+  
 }
 
 .section {
@@ -94,4 +95,10 @@
     transform: scale(1);
     -webkit-transform: scale(1);
   }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

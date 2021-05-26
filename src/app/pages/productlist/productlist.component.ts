@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StateService } from '../../../app/@core/data/state.service';
 import { ProductListService} from '../productlist/productlist.service';
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { GlobalShared } from '../../app.global';
 import { Apollo } from 'apollo-angular';
 import { CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, PRODUCT_CATEGORY_WISE_LIST_QUERY } from '../../graphql';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @Component({
   selector: 'ngx-productlist',
@@ -30,6 +31,8 @@ export class ProductlistComponent implements OnInit, AfterViewInit {
               private productListService: ProductListService,
               public globalShared: GlobalShared,
               private stateService: StateService,
+              private cd: ChangeDetectorRef,
+              private dashboardService: DashboardService,
               private apollo: Apollo ) {
     this.stateService.setSidebarState(this.stateService.sidebars[0]);
 
@@ -52,6 +55,18 @@ export class ProductlistComponent implements OnInit, AfterViewInit {
         this.productListService.productList(response);
         this.productListService.currentProducts.subscribe(data => {
           this.products = data;
+          // console.log("data", data);
+          if (this.products.length !== 0) {
+            this.products.map(item => {
+              this.dashboardService.getFile(item['image']).subscribe(result => {
+                if (result) {
+                  item['image'] = "data:image/jpg;base64," + result;
+                }
+              })
+              return item;
+            })
+            // this.cd.detectChanges();
+          }
         });
       }
     }, (error) => {

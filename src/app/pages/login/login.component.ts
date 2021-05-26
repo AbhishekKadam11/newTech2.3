@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   public password: AbstractControl;
   public submitted: boolean = false;
   public message: string;
+  loadingMediumGroup = false;
 
   constructor(fb: FormBuilder, private userService: UserService, private router: Router, private apollo: Apollo) {
     this.form = fb.group({
@@ -32,9 +33,8 @@ export class LoginComponent implements OnInit {
 
   public onSubmit(values: Object): void {
     this.submitted = true;
-    console.log(values);
+    this.loadingMediumGroup = true;
     if (this.form.valid) {
-
       var input = {
         email: values['email'],
         password: values['password']
@@ -52,12 +52,13 @@ export class LoginComponent implements OnInit {
         var loggedIn = true;
         this.router.navigate(['/pages/dashboard']);
         this.userService.setProfileData(response.data['userForLogin']);
-        //    console.log(response);
+        this.loadingMediumGroup = false;
       }, (error) => {
         this.message = "Please enter correct credentials."
         setTimeout(() => {
           this.message = '';
         }, 3000);
+        this.loadingMediumGroup = false;
         console.log(error);
       });
 

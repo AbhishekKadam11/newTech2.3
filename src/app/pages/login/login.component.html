@@ -19,7 +19,10 @@
           {{message}}
       </small>
     <div class="">
-      <button [disabled]="!form.valid" type="submit" class="btn btn-block btn-hero-success" (click)="onSubmit(form.value)">Sign in</button>
+      <button [disabled]="!form.valid" 
+      [nbSpinner]="loadingMediumGroup" 
+      nbSpinnerStatus="info" nbSpinnerSize="small"
+      type="submit" class="btn btn-block btn-hero-success" (click)="onSubmit(form.value)">Sign in</button>
       <!-- <a routerLink="/login" class="forgot-pass">Forgot password?</a> -->
     </div>
   </div>

@@ -10,17 +10,17 @@
 
           <div class="mx-auto d-block">
             <!-- <img [src]="globalShared['urlpath']+product['image1']"  -->
-            <img [src]="globalShared['urlpath']+product['image']" src-fallback="{{globalShared['defaultimage']}}" class="img">
+            <img [src]="product['image']" src-fallback="{{globalShared['defaultimage']}}" class="img">
           </div>
         </div>
 
         <div class="row">
-          <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12">
+          <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12 center">
 
             <ngx-carousel [inputs]="carouselTile" (carouselLoad)="carouselTileLoad($event)">
-              <ngx-tile NgxCarouselItem *ngFor="let slide of product['productimages'];let i = index" style="width: auto !important;">
+              <ngx-tile NgxCarouselItem *ngFor="let slide of (product['productimages']);let i = index;" style="width: auto !important;"> 
                 <a (click)="showimage(i)">
-                  <img [src]="globalShared['urlpath']+slide" src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+                  <img [src]="slide" src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                 </a>
               </ngx-tile>
               <a class="right carousel-control-prev" NgxCarouselPrev role="button">

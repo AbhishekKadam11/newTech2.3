@@ -17,12 +17,12 @@
           <div class="rect5"></div>
         </div> 
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-is-12">
-          <ngu-carousel #myCarousel [inputs]="carouselTile"  [dataSource]="motherboard">
+          <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="motherboard">
             <ngu-tile *nguCarouselDef="let slide;">
-              <a (click)="productDetails(slide['data']['id'])">
-                <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+              <a (click)="productDetails(slide['id'])"> 
+                <img [src]="slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                 <blockquote class="blockquote">
-                  <p class="mb-0">{{slide['data']['title']}} </p>
+                  <p class="mb-0">{{slide['title']}} </p>
                 </blockquote>
               </a>
             </ngu-tile>

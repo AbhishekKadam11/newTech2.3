@@ -10,6 +10,7 @@ export class GlobalShared {
    serverpath: string = 'https://newtechserver2.herokuapp.com/graphql/';
   //  serverpath: string = 'http://localhost:8080/graphql/';
    defaultimage: string = 'assets/images/default-placeholder.png'; // '../assets/images/default-placeholder.png'
-   imageUrl: string = 'https://newtechadmin.netlify.app/.netlify/functions/index/getFile?filename=';
+  //  imageUrl: string = 'https://newtechadminapi.netlify.app/.netlify/functions/index';
+   imageUrl: string = 'https://main-newtech-p6g7tpooam6b2xjm-gtw.qovery.io';
 
 }

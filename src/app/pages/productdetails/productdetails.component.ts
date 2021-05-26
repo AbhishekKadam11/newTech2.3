@@ -8,6 +8,7 @@ import { NgxCarousel } from 'ngx-carousel';
 import { GlobalShared } from '../../app.global';
 import { Apollo } from 'apollo-angular';
 import { PRODUCT_DESCRIPTION, CUSTOMERS_REVIEW, CreateLinkMutationResponse } from '../../graphql';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -19,8 +20,8 @@ import { PRODUCT_DESCRIPTION, CUSTOMERS_REVIEW, CreateLinkMutationResponse } fro
 export class ProductdetailsComponent implements OnInit {
 
   productid: string;
-  product: any= {};
-  productReview: any= {};
+  product: any = {};
+  productReview: any = {};
   starRate: number = 4;
   brand;
   title;
@@ -33,17 +34,18 @@ export class ProductdetailsComponent implements OnInit {
   productData;
   public carouselTileItems: Array<any>;
   public carouselTile: NgxCarousel;
-  recent: any= {};
+  recent: any = {};
   // defaultimage: string;
   // placeholder = 'assets/images/default-placeholder.png';
 
   constructor(private route: ActivatedRoute, private router: Router,
-              private productdetailsaervice: ProductDetailsService,
-              private stateService: StateService,
-              private cdRef: ChangeDetectorRef,
-              public globalShared: GlobalShared,
-              private apollo: Apollo,
-              private cartService: CartService) {
+    private productdetailsaervice: ProductDetailsService,
+    private stateService: StateService,
+    private cdRef: ChangeDetectorRef,
+    public globalShared: GlobalShared,
+    private dashboardService: DashboardService,
+    private apollo: Apollo,
+    private cartService: CartService) {
 
     this.stateService.setSidebarState(this.stateService.sidebars[2]);
 
@@ -51,18 +53,18 @@ export class ProductdetailsComponent implements OnInit {
 
   ngOnInit() {
 
-      this.carouselTile = {
-        grid: {xs: 1, sm: 2, md: 2, lg: 3, all: 0},
-        slide: 2,
-        speed: 400,
-        animation: 'lazy',
-        point: {
-          visible: false,
-        },
-        load: 2,
-        touch: true,
-        easing: 'ease',
-      };
+    this.carouselTile = {
+      grid: { xs: 1, sm: 2, md: 2, lg: 3, all: 0 },
+      slide: 2,
+      speed: 400,
+      animation: 'lazy',
+      point: {
+        visible: false,
+      },
+      load: 2,
+      touch: true,
+      easing: 'ease',
+    };
 
     this.route.params.subscribe(params => {
       this.productid = params['productId'];
@@ -73,18 +75,34 @@ export class ProductdetailsComponent implements OnInit {
       variables: { pid: this.productid }
     }).valueChanges.subscribe((response) => {
       let data = response['data']['getProductDescriptionData'];
-        this.product['brand'] = data['data']['brand'];
-        this.product['title'] = data['data']['title'];
-        this.product['price'] = data['data']['price'];
-        this.product['baseprice'] = data['data']['price'];
-        this.product['modalno'] = data['data']['modalno'];
-        this.product['shortdescription'] = data['data']['shortdescription'];
-        this.product['fulldescription'] = data['data']['fulldescription'];
-        this.product['image'] = data['image'];
-        this.product['productimages'] = data['imagearray'];
-        this.product['quantity'] = 1;
-        this.product['id'] = data['data']['id'];
-      //console.log(data);
+      this.product['brand'] = data['data']['brand'];
+      this.product['title'] = data['data']['title'];
+      this.product['price'] = data['data']['price'];
+      this.product['baseprice'] = data['data']['price'];
+      this.product['modalno'] = data['data']['modalno'];
+      this.product['shortdescription'] = data['data']['shortdescription'];
+      this.product['fulldescription'] = data['data']['fulldescription'];
+      this.product['image'] = data['image'];
+      this.product['productimages'] = data['imagearray'].split(',');
+      this.product['quantity'] = 1;
+      this.product['id'] = data['data']['id'];
+      if (this.product['image']) {
+        this.product['productimages'].unshift(this.product['image'])
+ 
+      }
+      if (this.product['productimages'].length !== 0) {
+        this.product['productimages'].forEach((item,key) => {
+        
+          this.dashboardService.getFile(item).subscribe(result => {
+            if (result) {
+              item = "data:image/jpg;base64," + result;
+              this.product['productimages'].splice(key,1, item)
+              this.product['image'] = this.product['productimages'][0];
+            }
+          })
+        })
+        
+      }
     }, (error) => {
       console.log("product description api " + error);
     });
@@ -102,31 +120,45 @@ export class ProductdetailsComponent implements OnInit {
 
   }
 
-  productStartRate(data:any) {
+  async getImage(id) {
+    this.dashboardService.getFile(id).subscribe(result => {
+      if (result) {
+        return "data:image/jpg;base64," + result;
+      } else {
+        return null;
+      }
+    })
+  }
+
+  // public trackItem (index: number, item: Item) {
+  //   return item.trackId;
+  // }
+
+  productStartRate(data: any) {
     let rating: number = 0;
-    data.forEach(val =>{
+    data.forEach(val => {
       rating += val['starRate'];
     });
-    this.starRate = (rating/data.length);
-  //  console.log(this.starRate);
+    this.starRate = (rating / data.length);
+    //  console.log(this.starRate);
   }
 
   showimage(index): void {
-   let image = '';
+    let image = '';
     let keepGoing = true;
 
     this.product['productimages'].forEach(function (val, key) {
       if (keepGoing) {
-        if (key === index ) {
-      //    console.log(val.toString());
+        if (key === index) {
+          //    console.log(val.toString());
           image = val;
           keepGoing = false;
         }
       }
 
-   })
+    })
     this.product['image'] = image;
-  //  console.log(image);
+    //  console.log(image);
   }
 
   public carouselTileLoad(evt: any) {
@@ -143,7 +175,7 @@ export class ProductdetailsComponent implements OnInit {
   //------Add to cart----
 
   AddProduct() {
-  //  this.product['added'] = true;
+    //  this.product['added'] = true;
     this.cartService.addProduct(this.product);
   }
 
@@ -157,6 +189,7 @@ export class ProductdetailsComponent implements OnInit {
       this.router.navigate(['/auth/login']);
     }
   }
+
 
 
 }

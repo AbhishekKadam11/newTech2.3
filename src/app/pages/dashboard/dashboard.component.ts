@@ -5,7 +5,8 @@ import { NguCarouselConfig, NguCarousel } from '@ngu/carousel';
 import { Apollo } from 'apollo-angular';
 import { StateService } from '../../../app/@core/data/state.service';
 import { GlobalShared } from '../../app.global';
-import { CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, PRODUCT_LIST_QUERY } from '../../graphql';
+import { CREATE_LINK_MUTATION_SIGNUP, CreateLinkMutationResponse, PRODUCT_LIST_QUERY,
+  PRODUCT_CATEGORY_WISE_LIST_QUERY } from '../../graphql';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -65,15 +66,58 @@ export class DashboardComponent implements OnInit {
       this.dashboardProducts = JSON.parse(response['data']['dashboardProductList']);
       this.processor = JSON.parse(this.dashboardProducts['Processor']);
       this.graphiccard = this.dashboardProducts['Graphic Card'] ? JSON.parse(this.dashboardProducts['Graphic Card']) : false;
-      this.motherboard = this.dashboardProducts['Motherboard'] ? JSON.parse(this.dashboardProducts['Motherboard']) : false;
+      // this.motherboard = this.dashboardProducts['Motherboard'] ? JSON.parse(this.dashboardProducts['Motherboard']) : false;
       this.monitor = this.dashboardProducts['Monitor'] ? JSON.parse(this.dashboardProducts['Monitor']) : false;
       this.routers = this.dashboardProducts['Router'] ? JSON.parse(this.dashboardProducts['Router']) : false;
       this.isRunning = false;
+      // if (this.processor.length !== 0) {
+      //   this.processor.map(item => {
+      //     this.dashboardService.getFile(item['image']).subscribe(result=>{
+           
+      //       // console.log("getFile",result)
+      //       if(result){
+      //         item['image'] = "data:image/jpg;base64," + result;
+      //       }
+      //     })
+      //   })
+      // }
+
+      // if (this.motherboard.length !== 0) {
+      //   this.motherboard.map(item => {
+      //     this.dashboardService.getFile(item['image']).subscribe(result=>{
+      //       if(result){
+      //         item['image'] = "data:image/jpg;base64," + result;
+      //       }
+      //     })
+      //     return item;
+      //   })
+      // }
+  
    //   console.log(JSON.stringify( this.dashboardProducts['graphiccard'])); 
     }, (error) => {
       console.log("test" + error); 
     });
 
+    //for motherboard
+    this.apollo.watchQuery({
+      query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
+      variables: {  category: "Motherboard",
+                    brand: "" }
+    }).valueChanges.subscribe((response) => {
+      this.motherboard = response['data']['productCategoryList'];
+        if (this.motherboard.length !== 0) {
+        this.motherboard.map(item => {
+          this.dashboardService.getFile(item['image']).subscribe(result=>{
+            if(result){
+              item['image'] = "data:image/jpg;base64," + result;
+            }
+          })
+          return item;
+        })
+      }
+    }, (error) => {
+      console.log("test" + error);
+    });
   }
 
   slides: any;

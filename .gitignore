@@ -2,7 +2,7 @@
 /dist
 /tmp
 /out-tsc
-
+package1.json
 # dependencies
 /node_modules
 
