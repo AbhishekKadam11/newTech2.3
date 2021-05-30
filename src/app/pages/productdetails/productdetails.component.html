@@ -4,21 +4,19 @@
   </nb-card-header>
   <nb-card-body>
     <div class="row">
-
-      <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6 col-is-6">
+      <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6 col-sm-12">
         <div class="row">
-
           <div class="mx-auto d-block">
             <!-- <img [src]="globalShared['urlpath']+product['image1']"  -->
             <img [src]="product['image']" src-fallback="{{globalShared['defaultimage']}}" class="img">
           </div>
         </div>
-
+    
         <div class="row">
-          <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12 center">
-
+          <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12 center">
             <ngx-carousel [inputs]="carouselTile" (carouselLoad)="carouselTileLoad($event)">
-              <ngx-tile NgxCarouselItem *ngFor="let slide of (product['productimages']);let i = index;" style="width: auto !important;"> 
+              <ngx-tile NgxCarouselItem *ngFor="let slide of (product['productimages']);let i = index;"
+                style="width: auto !important;">
                 <a (click)="showimage(i)">
                   <img [src]="slide" src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                 </a>
@@ -32,61 +30,43 @@
                 <span class="sr-only">Next</span>
               </a>
             </ngx-carousel>
-
           </div>
         </div>
       </div>
-      <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6">
-        <div class="row">
-          <h5 class="text-hint" *ngIf="product['brand']">{{product['brand']}}</h5>
-        </div>
-        <div class="row">
-          <h4>{{product['title']}}</h4>
-        </div>
-        <div class="row">
-          <ngb-rating [(rate)]="starRate" max=5 [readonly]="true">
-            <ng-template let-fill="fill">
-              <span class="star fill text-warning" [class.filled]="fill === 100" style="font-size: 1.2rem">
-                <i class="ion-android-star" *ngIf="fill === 100"></i>
-                <i class="ion-android-star-outline" *ngIf="fill !== 100"></i>
-              </span>
-            </ng-template>
-          </ngb-rating>
 
-          <span style="margin-left: 5px;"> customer review</span>
-          <!--<span class="current-rate">{{ starRate }}</span>-->
-        </div>
-        <hr style="margin-left: -15px">
-        <div class="row">
-          <h5>Price:</h5>
-          <h4 class="text-danger lm10"> ₹ {{product['price']}}</h4>
-        </div>
-        <div class="row">
-          <h5>Quantity:</h5>
-          <div class="col-xxxl-2 col-xxl-2 col-lg-2 col-md-2">
-            <div class="input-group input-group-sm">
+    <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6 col-sm-12">
+      <div class="row">
+        <h5 class="text-hint" *ngIf="product['brand']">{{product['brand']}}</h5>
+      </div>
+      <div class="row">
+        <h4>{{product['title']}}</h4>
+      </div>
+      <hr style="margin-left: -15px">
+      <div class="row">
+        <h5>Price:</h5>
+        <h4 class="text-danger lm10"> ₹ {{product['price']}}</h4>
+      </div>
+      <div class="form-group row">
+        
+          <label for="inputCategory" class="label col-form-label">Quantity:</label>
+          <div class="col-md-3 col-sm-3">
               <input type="number" [(ngModel)]="product['quantity']" min="1" class="form-control" />
-            </div>
           </div>
-          <div class="col-xxxl-3 col-xxl-3 col-lg-3 col-md-3">
-            <div class="input-group input-group-sm">
+          <div class="col-md-3 col-sm-3">
               <button title="Add to cart" (click)="AddProduct()" class="btn btn-hero-info btn-sm"> Add to cart </button>
-            </div>
           </div>
-
-        </div>
-        <div class="row mt20">
-          <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6 col-is-6">
-            <!--<span class="alert alert-hint ">-->
-            <!--short details-->
-            <!--</span>-->
-            <div [innerHTML]="product['shortdescription']">
-            </div>
+       
+      </div>
+      <div class="row mt20">
+        <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6 col-sm-6">
+          <!--<span class="alert alert-hint ">-->
+          <!--short details-->
+          <!--</span>-->
+          <div [innerHTML]="product['shortdescription']">
           </div>
         </div>
       </div>
-
-
+    </div>
     </div>
   </nb-card-body>
 </nb-card>
@@ -97,7 +77,7 @@
   </nb-card-header>
   <nb-card-body>
     <div class="row ml10">
-      <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12">
+      <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-6">
         <div class="lm10" [innerHTML]="product['fulldescription']">
         </div>
       </div>
@@ -130,7 +110,8 @@
         <!--</div>-->
         <div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-12">
           <div class="contact mt10" *ngFor="let c of productReview">
-            <nb-user [name]="c.name" [picture]="c['profilePic'] ? globalShared['urlpath']+c['profilePic'] : false"></nb-user>
+            <nb-user [name]="c.name" [picture]="c['profilePic'] ? globalShared['urlpath']+c['profilePic'] : false">
+            </nb-user>
             <ngb-rating [(rate)]="c.starRate" max=5 [readonly]="true" class="mt5">
               <ng-template let-fill="fill">
                 <span class="star fill text-warning" [class.filled]="fill === 100">

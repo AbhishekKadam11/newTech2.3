@@ -25,9 +25,14 @@ export class DashboardComponent implements OnInit {
   routers;
   motherboard;
   public isRunning: boolean = true;
+  public ngspinnerMotherboard: boolean = true;
+  public ngspinnerProcessor: boolean = true;
+  public ngspinnerGC: boolean = true;
+  public ngspinnerRouter: boolean = true;
   public carouselTileItems: Array<any>;
   public carouselTile: NguCarouselConfig;
   @ViewChild('myCarousel') myCarousel: NguCarousel<string>;
+  
   carouselConfig: NguCarouselConfig = {
     grid: {xs: 2, sm: 3, md: 3, lg: 5, all: 0},
     slide: 2,
@@ -46,57 +51,23 @@ export class DashboardComponent implements OnInit {
               private apollo: Apollo) {
 
     this.stateService.setSidebarState(this.stateService.sidebars[2]);
-
-    // this.dashboardService.dashboardProductList().subscribe((result) => {
-    //   this.dashboardProducts = result;
-    //   this.processor = result['processor'];
-    //   this.graphiccard = result['graphiccard'];
-    //   this.motherboard = result['motherboard'];
-    //   this.monitor = result['monitor'];
-    //   this.routers = result['router'];
-    // //  this.spinnerService.hide();
-    //   this.isRunning = false;
-    // });
-
     
-    this.apollo.watchQuery({
-      query: PRODUCT_LIST_QUERY
+  //   this.apollo.watchQuery({
+  //     query: PRODUCT_LIST_QUERY
      
-    }).valueChanges.subscribe((response) => {
-      this.dashboardProducts = JSON.parse(response['data']['dashboardProductList']);
-      this.processor = JSON.parse(this.dashboardProducts['Processor']);
-      this.graphiccard = this.dashboardProducts['Graphic Card'] ? JSON.parse(this.dashboardProducts['Graphic Card']) : false;
-      // this.motherboard = this.dashboardProducts['Motherboard'] ? JSON.parse(this.dashboardProducts['Motherboard']) : false;
-      this.monitor = this.dashboardProducts['Monitor'] ? JSON.parse(this.dashboardProducts['Monitor']) : false;
-      this.routers = this.dashboardProducts['Router'] ? JSON.parse(this.dashboardProducts['Router']) : false;
-      this.isRunning = false;
-      // if (this.processor.length !== 0) {
-      //   this.processor.map(item => {
-      //     this.dashboardService.getFile(item['image']).subscribe(result=>{
-           
-      //       // console.log("getFile",result)
-      //       if(result){
-      //         item['image'] = "data:image/jpg;base64," + result;
-      //       }
-      //     })
-      //   })
-      // }
-
-      // if (this.motherboard.length !== 0) {
-      //   this.motherboard.map(item => {
-      //     this.dashboardService.getFile(item['image']).subscribe(result=>{
-      //       if(result){
-      //         item['image'] = "data:image/jpg;base64," + result;
-      //       }
-      //     })
-      //     return item;
-      //   })
-      // }
+  //   }).valueChanges.subscribe((response) => {
+  //     this.dashboardProducts = JSON.parse(response['data']['dashboardProductList']);
+  //     // this.processor = JSON.parse(this.dashboardProducts['Processor']);
+  //     // this.graphiccard = this.dashboardProducts['Graphic Card'] ? JSON.parse(this.dashboardProducts['Graphic Card']) : false;
+  //     // this.motherboard = this.dashboardProducts['Motherboard'] ? JSON.parse(this.dashboardProducts['Motherboard']) : false;
+  //     // this.monitor = this.dashboardProducts['Monitor'] ? JSON.parse(this.dashboardProducts['Monitor']) : false;
+  //     // this.routers = this.dashboardProducts['Router'] ? JSON.parse(this.dashboardProducts['Router']) : false;
+  //     this.isRunning = false;
   
-   //   console.log(JSON.stringify( this.dashboardProducts['graphiccard'])); 
-    }, (error) => {
-      console.log("test" + error); 
-    });
+  //  //   console.log(JSON.stringify( this.dashboardProducts['graphiccard'])); 
+  //   }, (error) => {
+  //     console.log("test" + error); 
+  //   });
 
     //for motherboard
     this.apollo.watchQuery({
@@ -104,6 +75,7 @@ export class DashboardComponent implements OnInit {
       variables: {  category: "Motherboard",
                     brand: "" }
     }).valueChanges.subscribe((response) => {
+      this.ngspinnerMotherboard = false;
       this.motherboard = response['data']['productCategoryList'];
         if (this.motherboard.length !== 0) {
         this.motherboard.map(item => {
@@ -118,10 +90,106 @@ export class DashboardComponent implements OnInit {
     }, (error) => {
       console.log("test" + error);
     });
+
+    //for Processor
+    this.apollo.watchQuery({
+      query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
+      variables: {
+        category: "Processor",
+        brand: ""
+      }
+    }).valueChanges.subscribe((response) => {
+      this.ngspinnerProcessor = false;
+      this.processor = response['data']['productCategoryList'];
+      if (this.processor.length !== 0) {
+        this.processor.map(item => {
+          this.dashboardService.getFile(item['image']).subscribe(result => {
+            if (result) {
+              item['image'] = "data:image/jpg;base64," + result;
+            }
+          })
+          return item;
+        })
+      }
+    }, (error) => {
+      console.log("test" + error);
+    });
+
+    //for gc
+    this.apollo.watchQuery({
+      query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
+      variables: {
+        category: "Graphic Card",
+        brand: ""
+      }
+    }).valueChanges.subscribe((response) => {
+      this.ngspinnerGC = false;
+      this.graphiccard = response['data']['productCategoryList'];
+      if (this.graphiccard.length !== 0) {
+        this.graphiccard.map(item => {
+          this.dashboardService.getFile(item['image']).subscribe(result => {
+            if (result) {
+              item['image'] = "data:image/jpg;base64," + result;
+            }
+          })
+          return item;
+        })
+      }
+    }, (error) => {
+      console.log("test" + error);
+    });
+
+    //for monitor
+    this.apollo.watchQuery({
+      query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
+      variables: {
+        category: "Monitor",
+        brand: ""
+      }
+    }).valueChanges.subscribe((response) => {
+      this.ngspinnerProcessor = false;
+      this.monitor = response['data']['productCategoryList'];
+      if (this.monitor.length !== 0) {
+        this.monitor.map(item => {
+          this.dashboardService.getFile(item['image']).subscribe(result => {
+            if (result) {
+              item['image'] = "data:image/jpg;base64," + result;
+            }
+          })
+          return item;
+        })
+      }
+    }, (error) => {
+      console.log("test" + error);
+    });
+
+      //for router
+      this.apollo.watchQuery({
+        query: PRODUCT_CATEGORY_WISE_LIST_QUERY,
+        variables: {
+          category: "Router",
+          brand: ""
+        }
+      }).valueChanges.subscribe((response) => {
+        this.ngspinnerRouter = false;
+        this.routers = response['data']['productCategoryList'];
+        if (this.routers.length !== 0) {
+          this.routers.map(item => {
+            this.dashboardService.getFile(item['image']).subscribe(result => {
+              if (result) {
+                item['image'] = "data:image/jpg;base64," + result;
+              }
+            })
+            return item;
+          })
+        }
+      }, (error) => {
+        console.log("test" + error);
+      });
+
   }
 
   slides: any;
-
   ngOnInit() {
    this.carouselTile = {
     grid: {xs: 2, sm: 3, md: 3, lg: 5, all: 0},

@@ -9,7 +9,7 @@
     <nb-card>
       <nb-card-header class="color headerpad"><h4><strong>Motherboard</strong></h4> </nb-card-header>
       <nb-card-body>
-        <div class="ngspinner" *ngIf="isRunning">
+        <div class="ngspinner" *ngIf="ngspinnerMotherboard">
           <div class="rect1"></div>
           <div class="rect2"></div>
           <div class="rect3"></div>
@@ -20,7 +20,7 @@
           <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="motherboard">
             <ngu-tile *nguCarouselDef="let slide;">
               <a (click)="productDetails(slide['id'])"> 
-                <img [src]="slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+                <img [src]="slide['image']" src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                 <blockquote class="blockquote">
                   <p class="mb-0">{{slide['title']}} </p>
                 </blockquote>
@@ -56,7 +56,7 @@
     <nb-card>
         <nb-card-header class="color headerpad"><h4><strong>Processor</strong></h4> </nb-card-header>
       <nb-card-body>
-        <div class="ngspinner" *ngIf="isRunning">
+        <div class="ngspinner" *ngIf="ngspinnerProcessor">
           <div class="rect1"></div>
           <div class="rect2"></div>
           <div class="rect3"></div>
@@ -66,10 +66,10 @@
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12" >
           <ngu-carousel #myCarousel [inputs]="carouselTile"  (carouselLoad)="carouselTileLoad($event)" [dataSource]="processor">
             <ngu-tile *nguCarouselDef="let slide;">
-              <a (click)="productDetails(slide['data']['id'])">
-                <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+              <a (click)="productDetails(slide['id'])">
+                <img [src]="slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                 <blockquote class="blockquote">
-                  <p class="mb-0">{{slide['data']['title']}} </p>
+                  <p class="mb-0">{{slide['title']}} </p>
                 </blockquote>
               </a>
             </ngu-tile>
@@ -102,7 +102,7 @@
     <nb-card>
         <nb-card-header class="color headerpad"><h4><strong>Graphic Card</strong></h4> </nb-card-header>
       <nb-card-body>
-        <div class="ngspinner" *ngIf="isRunning">
+        <div class="ngspinner" *ngIf="ngspinnerGC">
           <div class="rect1"></div>
           <div class="rect2"></div>
           <div class="rect3"></div>
@@ -112,10 +112,10 @@
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12">
             <ngu-carousel #myCarousel [inputs]="carouselTile"  (carouselLoad)="carouselTileLoad($event)" [dataSource]="graphiccard">
                 <ngu-tile *nguCarouselDef="let slide;">
-                  <a (click)="productDetails(slide['data']['id'])">
-                    <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+                  <a (click)="productDetails(slide['id'])">
+                    <img [src]="slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                     <blockquote class="blockquote">
-                      <p class="mb-0">{{slide['data']['title']}} </p>
+                      <p class="mb-0">{{slide['title']}} </p>
                     </blockquote>
                   </a>
                 </ngu-tile>
@@ -147,7 +147,7 @@
     <nb-card>
       <nb-card-header class="color headerpad"><h4><strong>Router</strong></h4> </nb-card-header>
       <nb-card-body>
-        <div class="ngspinner" *ngIf="isRunning">
+        <div class="ngspinner" *ngIf="ngspinnerRouter">
           <div class="rect1"></div>
           <div class="rect2"></div>
           <div class="rect3"></div>
@@ -157,10 +157,10 @@
         <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12 col-is-12">
             <ngu-carousel #myCarousel [inputs]="carouselTile"  (carouselLoad)="carouselTileLoad($event)" [dataSource]="routers">
                 <ngu-tile *nguCarouselDef="let slide;">
-                  <a (click)="productDetails(slide['data']['id'])">
-                    <img [src]="globalShared['urlpath']+slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
+                  <a (click)="productDetails(slide['id'])">
+                    <img [src]="slide['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block">
                     <blockquote class="blockquote">
-                      <p class="mb-0">{{slide['data']['title']}} </p>
+                      <p class="mb-0">{{slide['title']}} </p>
                     </blockquote>
                   </a>
                 </ngu-tile>
