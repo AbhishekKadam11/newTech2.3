@@ -17,17 +17,29 @@
           </thead>
           <tbody>
           <tr *ngFor="let item of cartData; let i = index">
-            <td>   <img [src]="globalShared['urlpath']+item['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block"></td>
+            <td>   <img [src]="item['image']"  src-fallback="{{globalShared['defaultimage']}}" class="thumbnail mx-auto d-block"></td>
             <td>{{item['title']}}</td>
             <td>
-
-              <div class="btn-group" role="group" aria-label="Basic example" >
-                <button type="button" class="btn btn-outline-success btn-icon active btn-tn" (click)="decressQuantity(item)" > <i  class="nb-arrow-left"></i></button>
-                <div class="input-group input-group-fill-only col-sm-2" style=" padding-left: 5px !important;padding-right: 5px !important;">
-                <input class="form-control" type="text" min="1" [(ngModel)] = "item['quantity']">
-                </div>
-                <button type="button" class="btn btn-outline-success btn-icon active btn-tn" (click)="addQuantity(item)"> <i class="nb-arrow-right"></i>
-                </button>
+              <div class="row">
+                <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                  <div class="col-sm-1">
+                    <button type="button" class="mat-ripple appearance-filled size-tiny shape-rectangle status-basic"
+                    (click)="decressQuantity(item)"> <i class="nb-arrow-left"></i></button>
+                  </div>
+                  <div class="col-sm-2">
+                   
+                    <input class="form-control" type="text" min="1" [(ngModel)]="item['quantity']">
+                
+                  </div>
+                  <div class="col-sm-1">
+                    <button type="button" class="mat-ripple appearance-filled size-tiny shape-rectangle status-basic" size="tiny"
+                    (click)="addQuantity(item)"> <i class="nb-arrow-right"></i>
+                  </button>
+                  </div>
+                 
+                
+              
+                <!-- </div> -->
               </div>
             </td>
             <td>{{item['price']}}</td>

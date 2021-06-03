@@ -8,6 +8,7 @@ import {
   SET_CUSTOMER_ORDER,
   CreateLinkMutationResponse, SET_CUSTOMER_REVIEW
 } from '../../graphql';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @Component({
   selector: 'ngx-checkout',
@@ -22,8 +23,9 @@ export class CheckoutComponent implements OnInit {
   private isloggedIn: any;
   isEmpty: boolean = true;
 
-  constructor(private  cartservice: CartService, private apollo: Apollo,
-              private router: Router, public globalShared: GlobalShared) {
+  constructor(private cartservice: CartService, private apollo: Apollo,
+              private router: Router, public globalShared: GlobalShared,
+              private dashboardService: DashboardService) {
 
   }
 
@@ -33,6 +35,16 @@ export class CheckoutComponent implements OnInit {
       this.cartData = JSON.parse(this.cartData);
       this.getTotalAmmount();
       this.isEmpty = false;
+
+      //get images
+      this.cartData.map(item => {
+        this.dashboardService.getFile(item['image']).subscribe(result => {
+          if (result) {
+            item['image'] = "data:image/jpg;base64," + result;
+          }
+        })
+        return item;
+      })
     }
 
   }
@@ -53,13 +65,13 @@ export class CheckoutComponent implements OnInit {
 
   decressQuantity(item) {
     this.cartData.forEach(function (value)  {
-      if ( value['id'] === item['id']) {
+      if ( value['id'] === item['id'] && value['quantity'] > 1) {
         --value['quantity'];
         value['price'] = value['price'] - item['baseprice'];
-
+        this.getTotalAmmount();
       }
     });
-    this.getTotalAmmount();
+   
   }
   getTotalAmmount() {
    // this.total = 0;
