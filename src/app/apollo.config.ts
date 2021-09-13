@@ -9,7 +9,7 @@ import {setContext} from 'apollo-link-context';
 import {GlobalShared} from './app.global'
 
 // const uri = 'http://localhost:8080/graphql/';
-const uri = 'https://main-newtech-wqnn43nukhn7pw7m-gtw.qovery.io/graphql/';
+const uri = 'https://zab2d4fc2-z0b528ced-gtw.qovery.io/graphql/';
 // const http = httpLink.create({uri});
 export function provideApollo(httpLink: HttpLink) {
   const basic = setContext((op, ctx) => ({
